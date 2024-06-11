@@ -1,7 +1,9 @@
 <?php
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RuangController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PeminjamanBarangController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -28,7 +30,8 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login.aut
 
 Route::middleware('auth')->group(function(){
     Route::get('/tes', [LandingController::class, 'tes'])->name('landingpage.test');
-    Route::post('/peminjaman-cek', [LandingController::class, 'showAvailableRooms'])->name('show.available.rooms');
+    Route::post('/peminjaman-ruangan-cek', [LandingController::class, 'showAvailableRooms'])->name('show.available.rooms');
+    Route::post('/peminjaman-barang-cek', [LandingController::class, 'showAvailableBarangs'])->name('show.available.barangs');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/peminjaman',[LandingController::class,'store'])->name('landingpage.peminjaman.store');
     Route::get('/histori', [LandingController::class, 'histori'])->name('landingpage.histori');
@@ -39,16 +42,23 @@ Route::middleware('auth')->group(function(){
     Route::get('/profile/change-password', [ProfileController::class, 'pass'])->name('landingpage.change-password');
     Route::post('/change-password', [ProfileController::class, 'change'])->name('change-password.update');
 
-    Route::middleware('role:admin|staff')->group(function(){
+    Route::middleware('role:admin|dekan|rumah tangga|perkuliahan')->group(function(){
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/calendar', [DashboardController::class, 'calendar'])->name('dashboardpage.calendar');
         Route::get('/ruangan', [RuangController::class, 'index'])->name('dashboardpage.ruangan.index');
+        Route::get('/barang', [BarangController::class, 'index'])->name('dashboardpage.barang.index');
 
         Route::get('/ruangan/create', [RuangController::class, 'create'])->name('dashboardpage.ruangan.create');
         Route::post('/ruangan',[RuangController::class,'store'])->name('dashboardpage.ruangan.store');
         Route::get('/ruangan/edit/{id}',[RuangController::class,'edit'])->name('dashboardpage.ruangan.edit');
         Route::put('/ruangan/{id}',[RuangController::class,'update'])->name('dashboardpage.ruangan.update');
         Route::delete('/ruangan/{id}',[RuangController::class,'destroy'])->name('dashboardpage.ruangan.destroy');
+        
+        Route::get('/barang/create', [BarangController::class, 'create'])->name('dashboardpage.barang.create');
+        Route::post('/barang',[BarangController::class,'store'])->name('dashboardpage.barang.store');
+        Route::get('/barang/edit/{id}',[BarangController::class,'edit'])->name('dashboardpage.barang.edit');
+        Route::put('/barang/{id}',[BarangController::class,'update'])->name('dashboardpage.barang.update');
+        Route::delete('/barang/{id}',[BarangController::class,'destroy'])->name('dashboardpage.barang.destroy');
 
         Route::get('/peminjamans', [PeminjamanController::class, 'index'])->name('dashboardpage.peminjaman.index');
         Route::get('/peminjamans/create', [PeminjamanController::class, 'create'])->name('dashboardpage.peminjaman.create');
@@ -61,6 +71,18 @@ Route::middleware('auth')->group(function(){
         Route::get('/peminjamans/datacsv', [PeminjamanController::class, 'datacsv'])->name('dashboardpage.peminjaman.datacsv');
         Route::post('/peminjamans/csv',[PeminjamanController::class,'importCSV'])->name('dashboardpage.peminjaman.csv');
         Route::get('/download-csv', [PeminjamanController::class,'downloadCSV'])->name('download.csv');
+        
+        Route::get('/peminjamanbarangs', [PeminjamanBarangController::class, 'index'])->name('dashboardpage.peminjamanbarang.index');
+        Route::get('/peminjamanbarangs/create', [PeminjamanBarangController::class, 'create'])->name('dashboardpage.peminjamanbarang.create');
+        Route::post('/peminjamanbarangs',[PeminjamanBarangController::class,'store'])->name('dashboardpage.peminjamanbarang.store');
+        Route::get('/peminjamanbarangs/edit/{id}',[PeminjamanBarangController::class,'edit'])->name('dashboardpage.peminjamanbarang.edit');
+        Route::put('/peminjamanbarangs/{id}',[PeminjamanBarangController::class,'update'])->name('dashboardpage.peminjamanbarang.update');
+        Route::delete('/peminjamanbarangs/{id}',[PeminjamanBarangController::class,'destroy'])->name('dashboardpage.peminjamanbarang.destroy');
+        Route::post('/peminjamanbarangs/{id}/accept', [PeminjamanBarangController::class, 'accept'])->name('dashboardpage.peminjamanbarang.accept');
+        Route::post('/peminjamanbarangs/{id}/reject', [PeminjamanBarangController::class, 'reject'])->name('dashboardpage.peminjamanbarang.reject');
+        Route::get('/peminjamanbarangs/datacsv', [PeminjamanBarangController::class, 'datacsv'])->name('dashboardpage.peminjamanbarang.datacsv');
+        Route::post('/peminjamanbarangs/csv',[PeminjamanBarangController::class,'importCSV'])->name('dashboardpage.peminjamanbarang.csv');
+        Route::get('/download-csv', [PeminjamanBarangController::class,'downloadCSV'])->name('download.csv');
 
         Route::get('/slider', [SliderController::class, 'index'])->name('dashboardpage.denah.index');
         Route::get('/slider/create', [SliderController::class, 'create'])->name('dashboardpage.denah.create');
@@ -78,9 +100,12 @@ Route::middleware('auth')->group(function(){
         Route::put('/user/{id}',[UserController::class,'update'])->name('dashboardpage.user.update');
         Route::delete('/user/{id}',[UserController::class,'destroy'])->name('dashboardpage.user.destroy');
     });
+
+    // Route::middleware('role:')
 });
 Route::get('/denah', [LandingController::class, 'denah'])->name('landingpage.denah');
 Route::get('/kontak', [LandingController::class, 'kontak'])->name('landingpage.kontak');
 Route::get('/login', [LandingController::class, 'login'])->name('landingpage.login');
 Route::get('/peminjaman', [LandingController::class, 'peminjaman'])->name('landingpage.peminjaman');
+Route::get('/peminjamanbarang', [LandingController::class, 'peminjamanBarang'])->name('landingpage.peminjamanbarang');
 

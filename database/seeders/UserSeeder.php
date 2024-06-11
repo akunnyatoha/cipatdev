@@ -26,12 +26,30 @@ class UserSeeder extends Seeder
             'phone' => $faker->phoneNumber,
         ]);
 
-        // Staff
+        // Dekan
         $user = User::create([
             'id'=> $faker->unique()->numberBetween($min = 100000, $max = 999999),
             'role_id' => 2,
-            'name' => 'Staff',
-            'email' => 'staff@email.test',
+            'name' => 'Dekan',
+            'email' => 'dekan@email.test',
+            'password' => Hash::make('password'),
+            'phone' => $faker->phoneNumber,
+        ]);
+        // Dekan
+        $user = User::create([
+            'id'=> $faker->unique()->numberBetween($min = 100000, $max = 999999),
+            'role_id' => 3,
+            'name' => 'perkuliahan',
+            'email' => 'perkuliahan@email.test',
+            'password' => Hash::make('password'),
+            'phone' => $faker->phoneNumber,
+        ]);
+        // Dekan
+        $user = User::create([
+            'id'=> $faker->unique()->numberBetween($min = 100000, $max = 999999),
+            'role_id' => 4,
+            'name' => 'Rumah Tangga',
+            'email' => 'rumahtangga@email.test',
             'password' => Hash::make('password'),
             'phone' => $faker->phoneNumber,
         ]);
@@ -42,7 +60,7 @@ class UserSeeder extends Seeder
 
             $user = User::create([
                 'id'=> $faker->unique()->numberBetween($min = 100000, $max = 999999),
-                'role_id' => 3,
+                'role_id' => 5,
                 'name' => $faker->name,
                 'email' => $faker->email,
                 'password' => Hash::make('password'),

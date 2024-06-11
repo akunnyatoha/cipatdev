@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Peminjaman;
-use App\Models\Room;
+use App\Models\PeminjamanBarang;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,57 +12,71 @@ use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
 
 
-class PeminjamanController extends Controller
+class PeminjamanBarangController extends Controller
 {
     public function index(){
-        $peminjamans = Peminjaman::with('rooms')->orderBy('created_at', 'desc')->get();
-        return view("dashboardpage.peminjaman.index",compact('peminjamans'));
+        $peminjamans = PeminjamanBarang::with('barangs')->orderBy('created_at', 'desc')->get();
+        return view("dashboardpage.peminjamanbarang.index",compact('peminjamans'));
     }
     public function create(){
-        $rooms = Room::all();
-        return view('dashboardpage.peminjaman.create',compact('rooms'));
+        $barangs = Barang::all();
+        return view('dashboardpage.peminjamanbarang.create',compact('barangs'));
     }
     public function datacsv(){
-        $rooms = Room::all();
-        return view('dashboardpage.peminjaman.datacsv',compact('rooms'));
+        $barangs = Barang::all();
+        return view('dashboardpage.peminjamanbarang.datacsv',compact('barangs'));
     }
     public function store(Request $request){
-        if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan' || Auth::user()->role->name == 'perkuliahan') {
+        if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan' || Auth::user()->role->name == 'rumah tangga') {
             $status = 'accepted';
-            $peminjaman = Peminjaman::create([
+            $peminjaman = PeminjamanBarang::create([
                 'email' => $request->email,
                 'name' => $request->name,
                 'phone' => $request->phone,
-                'room_id' => $request->room,
+                'barang_id' => $request->barang,
                 'description' => $request->description,
                 'start_datetime' => $request->tanggalawal,
                 'end_datetime' => $request->tanggalakhir,
-                'capacity' => $request->capacity,
+                'quantity' => $request->quantity,
                 'created_by' => Auth::id(),
                 'validated_by' => Auth::id(),
+            ]);
+
+            $getBarang = Barang::where('id', $request->barang)->first();
+            $sisaQty = intval($getBarang->quantity) - intval($request->quantity); 
+
+            $updateQuantity = Barang::where('id', $request->barang)->update([
+                'quantity' => $sisaQty
             ]);
         } else {
             $email = Auth::user()->email;
             $phone = Auth::user()->phone;
             $name = Auth::user()->name;
             $status = 'pending';
-            $peminjaman = Peminjaman::create([
+            $peminjaman = PeminjamanBarang::create([
                 'email' => $email,
                 'name' => $name,
                 'phone' => $phone,
-                'room_id' => $request->room,
+                'barang_id' => $request->barang,
                 'description' => $request->description,
                 'start_datetime' => $request->tanggalawal,
                 'end_datetime' => $request->tanggalakhir,
-                'capacity' => $request->capacity,
+                'quantity' => $request->quantity,
                 'status' => $status,
                 'created_by' => Auth::id(),
             ]);
+
+            $getBarang = Barang::where('id', $request->barang)->first();
+            $sisaQty = intval($getBarang->quantity) - intval($request->quantity); 
+
+            $updateQuantity = Barang::where('id', $request->barang)->update([
+                'quantity' => $sisaQty
+            ]);
         }
-        if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan' || Auth::user()->role->name == 'perkuliahan') {
-            return redirect()->route('dashboardpage.peminjaman.index');
+        if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan' || Auth::user()->role->name == 'rumah tangga' ) {
+            return redirect()->route('dashboardpage.peminjamanbarang.index');
         } else {
-            return redirect()->route('landingpage.peminjaman');
+            return redirect()->route('landingpage.peminjamanbarang');
         }
     }
     public function importCSV(Request $request)
@@ -87,22 +101,22 @@ class PeminjamanController extends Controller
             // Ensure the number of columns matches the requirement
             if (count($row) == 10) {
                 // Find or create the room based on the provided name
-                $room = Room::firstOrCreate(['name' => $row[4]]);
+                $barang = Barang::firstOrCreate(['name' => $row[4]]);
 
                 // Format the start_datetime using Carbon
                 $startDatetime = Carbon::createFromFormat('m/d/Y H:i', $row[6])->format('Y-m-d H:i:s');
                 $endDatetime = Carbon::createFromFormat('m/d/Y H:i', $row[7])->format('Y-m-d H:i:s');
 
                 // Add data to the peminjamans table
-                Peminjaman::create([
+                PeminjamanBarang::create([
                     'email' => $row[1],
                     'name' => $row[2],
                     'phone' => $row[3],
-                    'room_id' => $room->id,
+                    'barang_id' => $barang->id,
                     'description' => $row[5],
                     'start_datetime' => $startDatetime,
                     'end_datetime' => $endDatetime,
-                    'capacity' => $row[8],
+                    'quantity' => $row[8],
                     'status' => $row[9],
                     'created_by' => auth()->user()->id,
                     'validated_by' => auth()->user()->id,
@@ -111,52 +125,60 @@ class PeminjamanController extends Controller
         }
 
         // Redirect dengan pesan sukses
-        return redirect()->route('dashboardpage.peminjaman.index')->with('success', 'Data berhasil diimpor dari CSV.');
+        return redirect()->route('dashboardpage.peminjamanbarang.index')->with('success', 'Data berhasil diimpor dari CSV.');
     }
     public function edit($id){
-        $peminjaman = Peminjaman::where('id',$id)->with('rooms')->first();
-        $ruangans = Room::all();
-        return view('dashboardpage.peminjaman.edit',compact('peminjaman','ruangans'));
+        $peminjaman = PeminjamanBarang::where('id',$id)->with('rooms')->first();
+        $ruangans = Barang::all();
+        return view('dashboardpage.peminjamanbarang.edit',compact('peminjaman','ruangans'));
     }
     public function update(Request $request, $id){
-        Peminjaman::where('id',$id)->update([
+        $qtySebelumUpdate = PeminjamanBarang::where('id',$id)->first();
+        $getBarang = Barang::where('id', $request->barang)->first();
+        $qtyBarang = intval($qtySebelumUpdate->quantity) + intval($getBarang->quantity);
+        PeminjamanBarang::where('id',$id)->update([
             'email' => $request->email,
             'name' => $request->name,
             'phone' => $request->phone,
-            'room_id' => $request->room,
+            'barang_id' => $request->barang,
             'description' => $request->description,
             'start_datetime' => $request->tanggalawal,
             'end_datetime' => $request->tanggalakhir,
-            'capacity' => $request->capacity,
+            'quantity' => $request->quantity,
         ]);
-        return redirect()->route('dashboardpage.peminjaman.index');
+        $sisaQty = intval($qtyBarang) - intval($request->quantity); 
+
+        $updateQuantity = Barang::where('id', $request->barang)->update([
+            'quantity' => $sisaQty
+        ]);
+        return redirect()->route('dashboardpage.peminjamanbarang.index');
     }
     public function accept($id)
     {
         $user = Auth::user();
-        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman = PeminjamanBarang::findOrFail($id);
         $peminjaman->status = 'accepted';
         $peminjaman->validated_by = $user->id;
         $peminjaman->save();
 
-        return redirect()->route('dashboardpage.peminjaman.index')->with('success', 'accepted successfully.');
+        return redirect()->route('dashboardpage.peminjamanbarang.index')->with('success', 'accepted successfully.');
     }
 
     public function reject($id)
     {
         $user = Auth::user();
-        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman = PeminjamanBarang::findOrFail($id);
         $peminjaman->status = 'reject';
         $peminjaman->validated_by = $user->id;
         $peminjaman->save();
 
-        return redirect()->route('dashboardpage.peminjaman.index')->with('success', 'has been rejected.');
+        return redirect()->route('dashboardpage.peminjamanbarang.index')->with('success', 'has been rejected.');
     }
     public function destroy($id)
     {
-        $peminjaman = Peminjaman::find($id);
+        $peminjaman = PeminjamanBarang::find($id);
         $peminjaman->delete();
-        return redirect()->route('dashboardpage.peminjaman.index');
+        return redirect()->route('dashboardpage.peminjamanbarang.index');
     }
     public function downloadCSV()
     {

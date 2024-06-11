@@ -17,9 +17,19 @@ class RoleSeeder extends Seeder
             'name' => 'admin',
         ]);
 
-        //Staff
+        //Dekan
         Role::create([
-            'name' => 'staff',
+            'name' => 'dekan',
+        ]);
+
+        //Perkuliahan
+        Role::create([
+            'name' => 'perkuliahan',
+        ]);
+
+        //Rumah Tangga
+        Role::create([
+            'name' => 'rumah tangga',
         ]);
 
         //User

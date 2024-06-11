@@ -28,9 +28,13 @@ class LoginController extends Controller
             $request->session()->regenerate();
             if (Auth::user()->role->name == 'admin') {
                 return redirect()->route('dashboard');
-            }else if(Auth::user()->role->name == 'staff'){
+            } else if(Auth::user()->role->name == 'dekan'){
                 return redirect()->route('dashboard');
-            }else {
+            } else if(Auth::user()->role->name == 'rumah tangga'){
+                return redirect()->route('dashboard');
+            }  else if(Auth::user()->role->name == 'perkuliahan'){
+                return redirect()->route('dashboard');
+            }  else {
                 return redirect()->route('landing');
             }
         }

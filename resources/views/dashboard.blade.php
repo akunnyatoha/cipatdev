@@ -95,11 +95,11 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <p class="d-flex flex-column">
-                                <span class="text-bold text-lg">{{ $peminjamanThisWeek->count() }}</span>
+                                <span class="text-bold text-lg">{{ $peminjamanThisWeek }}</span>
                                 <span>Peminjaman Minggu Ini</span>
                             </p>
                             <p class="ml-auto d-flex flex-column text-right">
-                                <span class="text-lg text-bold">{{ $peminjamanLastWeek->count() }}</span>
+                                <span class="text-lg text-bold">{{ $peminjamanLastWeek }}</span>
                                 <span>Peminjaman Minggu Lalu</span>
                             </p>
                         </div>
@@ -179,8 +179,8 @@
                     datasets: [{
                         label: 'Jumlah Peminjaman',
                         data: [
-                            {{ $peminjamanLastWeek->count() }},
-                            {{ $peminjamanThisWeek->count() }}
+                            {{ $peminjamanLastWeek }},
+                            {{ $peminjamanThisWeek }}
                         ],
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',

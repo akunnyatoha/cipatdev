@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('role')->get();
+        $users = User::get();
         return view('dashboardpage.user.index', compact('users'));
     }
     public function create(){
@@ -22,7 +22,10 @@ class UserController extends Controller
     }
     public function store(Request $request){
         // ubah nama file
-        $imageName = time() . '.' . $request->image->extension();
+        $imageName = '-';
+        if($request->image) {
+            $imageName = time() . '.' . $request->image->extension();
+        }
 
         // simpan file ke folder public/product
         Storage::putFileAs('public/user', $request->image, $imageName);

@@ -1,7 +1,16 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <span class="brand-text font-weight-light">Peminjaman Ruang</span>
+      @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan')
+        <span class="brand-text font-weight-light">Peminjaman Ruangan dan Barang</span>
+      @endif
+      @if (Auth::user()->role->name == 'rumah tangga')
+        <span class="brand-text font-weight-light">Peminjaman Barang</span>
+      @endif
+      @if (Auth::user()->role->name == 'perkuliahan')
+        <span class="brand-text font-weight-light">Peminjaman Ruangan</span>
+      @endif
+
     </a>
 
     <!-- Sidebar -->
@@ -48,10 +57,26 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{route('dashboardpage.barang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('dashboardpage.peminjaman.index')}}" class="nav-link">
               <i class="nav-icon fas fa-inbox"></i>
               <p>
-                Peminjaman
+                Peminjaman Ruangan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.peminjamanbarang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Peminjaman Barang
               </p>
             </a>
           </li>
@@ -74,7 +99,103 @@
         </ul>
       </nav>
       @endif
-      @if ((Auth::user()->role->name == 'staff'))
+      @if ((Auth::user()->role->name == 'dekan'))
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="{{route('dashboard')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.ruangan.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Ruangan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.barang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.peminjaman.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Peminjaman Ruangan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.peminjamanbarang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Peminjaman Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-barcode"></i>
+              <p>
+                Denah
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      @endif
+      @if ((Auth::user()->role->name == 'rumah tangga'))
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="{{route('dashboard')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.barang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.peminjamanbarang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Peminjaman
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-barcode"></i>
+              <p>
+                Denah
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      @endif
+      @if ((Auth::user()->role->name == 'perkuliahan'))
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class

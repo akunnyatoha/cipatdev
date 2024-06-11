@@ -11,7 +11,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{route('landingpage.login')}}">Masuk</a></li>
                 @endguest
                 @auth
-                @if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'staff')
+                @if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan')
                     <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
                     <li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

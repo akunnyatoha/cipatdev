@@ -23,7 +23,8 @@
                             <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Ruangan</th>
+                                <th>Kategori</th>
+                                <th>Nama Ruangan / Barang</th>
                                 <th>Keperluan</th>
                                 <th>Mulai</th>
                                 <th>Selesai</th>
@@ -34,14 +35,15 @@
                             <tbody>
                                 @foreach ($peminjamans as $peminjaman)
                                 <tr>
-                                    <td>{{ $peminjaman->rooms->name }}</td>
+                                    <td>{{ $peminjaman->kategori }}</td>
+                                    <td>{{ $peminjaman->name }}</td>
                                     <td>{{ $peminjaman->description }}</td>
                                     <td>{{ $peminjaman->start_datetime }}</td>
                                     <td>{{ $peminjaman->end_datetime }}</td>
                                     <td>{{ $peminjaman->status }}</td>
                                     <td>
                                         @if ($peminjaman->status == 'pending')
-                                            <form onsubmit="return confirm('Are you sure? ');" action="{{ route('landingpage.histori.destroy', $peminjaman->id) }}" method="POST" class="d-inline">
+                                            <form onsubmit="return confirm('Are you sure? ');" action="{{ route('landingpage.histori.destroy',$peminjaman->id) }}" method="POST" class="d-inline">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger">Delete</button>
