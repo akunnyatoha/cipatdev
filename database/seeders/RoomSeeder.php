@@ -13,14 +13,56 @@ class RoomSeeder extends Seeder
     public function run(): void
     {
         $faker = \Faker\Factory::create();
-        for ($i=0; $i < 50 ; $i++) {
-            $room = Room::create([
-                'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
-                'name' => $faker->word,
-                'floor'=> $faker->numberBetween($min = 1, $max = 3),
-                'capacity' => $faker->numberBetween($min = 30, $max = 100),
-                'building' => 'FTUMJ',
-            ]);
-        }
+        // for ($i=0; $i < 50 ; $i++) {
+        //     $room = Room::create([
+        //         'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+        //         'name' => $faker->word,
+        //         'floor'=> $faker->numberBetween($min = 1, $max = 3),
+        //         'capacity' => $faker->numberBetween($min = 30, $max = 100),
+        //         'building' => 'FTUMJ',
+        //     ]);
+        // }
+        $room = Room::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Jasmin',
+            'floor'=> 1,
+            'capacity' => $faker->numberBetween($min = 30, $max = 100),
+            'building' => 'FTUMJ',
+        ]);
+        $room = Room::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Melati',
+            'floor'=> 1,
+            'capacity' => $faker->numberBetween($min = 30, $max = 100),
+            'building' => 'FTUMJ',
+        ]);
+        $room = Room::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Anggrek',
+            'floor'=> 1,
+            'capacity' => $faker->numberBetween($min = 30, $max = 100),
+            'building' => 'FTUMJ',
+        ]);
+        $room = Room::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Dahlia',
+            'floor'=> 2,
+            'capacity' => $faker->numberBetween($min = 30, $max = 100),
+            'building' => 'FTUMJ',
+        ]);
+        $room = Room::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Aster',
+            'floor'=> 2,
+            'capacity' => $faker->numberBetween($min = 30, $max = 100),
+            'building' => 'FTUMJ',
+        ]);
+        $room = Room::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Sakura',
+            'floor'=> 2,
+            'capacity' => $faker->numberBetween($min = 30, $max = 100),
+            'building' => 'FTUMJ',
+        ]);
     }
 }

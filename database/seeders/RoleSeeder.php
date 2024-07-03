@@ -14,27 +14,27 @@ class RoleSeeder extends Seeder
     {
          //Admin
          Role::create([
-            'name' => 'admin',
+            'name' => 'Admin',
         ]);
 
         //Dekan
         Role::create([
-            'name' => 'dekan',
+            'name' => 'Dekan',
         ]);
 
         //Perkuliahan
         Role::create([
-            'name' => 'perkuliahan',
+            'name' => 'Perkuliahan',
         ]);
 
         //Rumah Tangga
         Role::create([
-            'name' => 'rumah tangga',
+            'name' => 'BKA',
         ]);
 
         //User
         Role::create([
-            'name' => 'user',
+            'name' => 'User',
         ]);
     }
 }

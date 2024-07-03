@@ -9,7 +9,7 @@
                         @if ($slider->image)
                             <img src="{{ asset('storage/slider/' . $slider->image) }}" class="d-block w-100" alt="{{ $slider->image }}">
                         @else
-                            <img src="{{ asset('images/default-slider.png') }}" class="d-block w-100" alt="default-image">
+                            <img src="{{ asset('storage/slider/default-slider.png') }}" class="d-block w-100" alt="default-image">
                         @endif
                     </div>
             @endforeach

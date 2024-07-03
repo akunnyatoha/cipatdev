@@ -1,13 +1,13 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan')
+      @if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Dekan')
         <span class="brand-text font-weight-light">Peminjaman Ruangan dan Barang</span>
       @endif
-      @if (Auth::user()->role->name == 'rumah tangga')
+      @if (Auth::user()->role->name == 'BAK')
         <span class="brand-text font-weight-light">Peminjaman Barang</span>
       @endif
-      @if (Auth::user()->role->name == 'perkuliahan')
+      @if (Auth::user()->role->name == 'Perkuliahan')
         <span class="brand-text font-weight-light">Peminjaman Ruangan</span>
       @endif
 
@@ -35,7 +35,7 @@
       </div>
 
       <!-- Sidebar Menu -->
-      @if ((Auth::user()->role->name == 'admin'))
+      @if ((Auth::user()->role->name == 'Admin'))
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -99,7 +99,7 @@
         </ul>
       </nav>
       @endif
-      @if ((Auth::user()->role->name == 'dekan'))
+      @if ((Auth::user()->role->name == 'Dekan'))
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -152,10 +152,18 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('laporan')}}" class="nav-link">
+              <i class="nav-icon fas fa-barcode"></i>
+              <p>
+                Laporan Peminjaman
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       @endif
-      @if ((Auth::user()->role->name == 'rumah tangga'))
+      @if ((Auth::user()->role->name == 'BKA'))
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -185,17 +193,25 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{route('laporan')}}" class="nav-link">
+              <i class="nav-icon fas fa-barcode"></i>
+              <p>
+                Laporan Peminjaman
+              </p>
+            </a>
+          </li>
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-barcode"></i>
               <p>
                 Denah
               </p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       @endif
-      @if ((Auth::user()->role->name == 'perkuliahan'))
+      @if ((Auth::user()->role->name == 'Perkuliahan'))
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -229,6 +245,14 @@
               <i class="nav-icon fas fa-barcode"></i>
               <p>
                 Denah
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('laporan')}}" class="nav-link">
+              <i class="nav-icon fas fa-barcode"></i>
+              <p>
+                Laporan Peminjaman
               </p>
             </a>
           </li>

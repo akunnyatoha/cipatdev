@@ -53,7 +53,7 @@
                             <td>{{ $peminjaman->email }}</td>
                             <td>{{ $peminjaman->name }}</td>
                             <td>{{ $peminjaman->phone }}</td>
-                            <td>{{ $peminjaman->barang->name }}</td>
+                            <td>{{ $peminjaman->barangs->name }}</td>
                             <td>{{ $peminjaman->description }}</td>
                             <td>{{ $peminjaman->start_datetime }}</td>
                             <td>{{ $peminjaman->end_datetime }}</td>

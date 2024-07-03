@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,8 +43,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/profile/change-password', [ProfileController::class, 'pass'])->name('landingpage.change-password');
     Route::post('/change-password', [ProfileController::class, 'change'])->name('change-password.update');
 
-    Route::middleware('role:admin|dekan|rumah tangga|perkuliahan')->group(function(){
+    Route::middleware('role:Admin|Dekan|BKA|Perkuliahan')->group(function(){
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
         Route::get('/calendar', [DashboardController::class, 'calendar'])->name('dashboardpage.calendar');
         Route::get('/ruangan', [RuangController::class, 'index'])->name('dashboardpage.ruangan.index');
         Route::get('/barang', [BarangController::class, 'index'])->name('dashboardpage.barang.index');
