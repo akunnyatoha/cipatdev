@@ -16,6 +16,7 @@ class PeminjamanController extends Controller
 {
     public function index(){
         $peminjamans = Peminjaman::with('rooms')->orderBy('created_at', 'desc')->get();
+        // dd($peminjamans);
         return view("dashboardpage.peminjaman.index",compact('peminjamans'));
     }
     public function create(){
