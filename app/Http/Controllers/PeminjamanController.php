@@ -28,7 +28,7 @@ class PeminjamanController extends Controller
         return view('dashboardpage.peminjaman.datacsv',compact('rooms'));
     }
     public function store(Request $request){
-        if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan' || Auth::user()->role->name == 'perkuliahan') {
+        if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Dekan' || Auth::user()->role->name == 'Perkuliahan') {
             $status = 'accepted';
             $peminjaman = Peminjaman::create([
                 'email' => $request->email,
@@ -60,7 +60,7 @@ class PeminjamanController extends Controller
                 'created_by' => Auth::id(),
             ]);
         }
-        if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan' || Auth::user()->role->name == 'perkuliahan') {
+        if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Dekan' || Auth::user()->role->name == 'Perkuliahan') {
             return redirect()->route('dashboardpage.peminjaman.index');
         } else {
             return redirect()->route('landingpage.peminjaman');

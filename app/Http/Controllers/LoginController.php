@@ -26,13 +26,13 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
-            if (Auth::user()->role->name == 'admin') {
+            if (Auth::user()->role->name == 'Admin') {
                 return redirect()->route('dashboard');
-            } else if(Auth::user()->role->name == 'dekan'){
+            } else if(Auth::user()->role->name == 'Dekan'){
                 return redirect()->route('dashboard');
-            } else if(Auth::user()->role->name == 'rumah tangga'){
+            } else if(Auth::user()->role->name == 'BKA'){
                 return redirect()->route('dashboard');
-            }  else if(Auth::user()->role->name == 'perkuliahan'){
+            }  else if(Auth::user()->role->name == 'Perkuliahan'){
                 return redirect()->route('dashboard');
             }  else {
                 return redirect()->route('landing');

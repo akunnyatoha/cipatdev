@@ -16,6 +16,7 @@ class PeminjamanBarangController extends Controller
 {
     public function index(){
         $peminjamans = PeminjamanBarang::with('barangs')->orderBy('created_at', 'desc')->get();
+        // dd($peminjamans);
         return view("dashboardpage.peminjamanbarang.index",compact('peminjamans'));
     }
     public function create(){
@@ -27,7 +28,7 @@ class PeminjamanBarangController extends Controller
         return view('dashboardpage.peminjamanbarang.datacsv',compact('barangs'));
     }
     public function store(Request $request){
-        if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan' || Auth::user()->role->name == 'rumah tangga') {
+        if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Dekan' || Auth::user()->role->name == 'BKA') {
             $status = 'accepted';
             $peminjaman = PeminjamanBarang::create([
                 'email' => $request->email,
@@ -73,7 +74,7 @@ class PeminjamanBarangController extends Controller
                 'quantity' => $sisaQty
             ]);
         }
-        if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'dekan' || Auth::user()->role->name == 'rumah tangga' ) {
+        if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Dekan' || Auth::user()->role->name == 'BKA' ) {
             return redirect()->route('dashboardpage.peminjamanbarang.index');
         } else {
             return redirect()->route('landingpage.peminjamanbarang');
@@ -168,6 +169,11 @@ class PeminjamanBarangController extends Controller
     {
         $user = Auth::user();
         $peminjaman = PeminjamanBarang::findOrFail($id);
+
+        $findBarang = Barang::where('id', $peminjaman->barang_id)->first();
+        $quantity = intval($findBarang->quantity) + intval($peminjaman->quantity);
+        $updateBarang = Barang::where('id', $peminjaman->barang_id)->update(['quantity' => $quantity]);
+
         $peminjaman->status = 'reject';
         $peminjaman->validated_by = $user->id;
         $peminjaman->save();

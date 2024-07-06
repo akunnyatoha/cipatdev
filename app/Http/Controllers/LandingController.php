@@ -89,7 +89,7 @@ class LandingController extends Controller
     }
     public function store(Request $request){
         $userRole = auth()->user()->role->name;
-        $status = ($userRole === 'admin' || $userRole === 'staff') ? 'accepted' : 'pending';
+        $status = ($userRole === 'Admin' || $userRole === 'BKA' || $userRole === 'Perkuliahan') ? 'accepted' : 'pending';
 
             $email = Auth::user()->email;
             $phone = Auth::user()->phone;

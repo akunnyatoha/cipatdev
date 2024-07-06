@@ -16,10 +16,6 @@
                         <input type="datetime-local" class="form-control" id="tanggalakhir" name="tanggalakhir" value="{{ $endDatetime }}">
                     </div>
                     <div class="form-label">
-                        <label for="capacity">Quantity</label>
-                        <input type="text" class="form-control" aria-label="quantity" id="quantity" name="quantity">
-                    </div>
-                    <div class="form-label">
                         <label for="room">Barang Yang Tersedia</label>
                         <select class="form-select" aria-label="barang" id="barang" name="barang">
                             <option selected disabled>- Pilih Barang -</option>
@@ -29,6 +25,10 @@
                                 <option disabled>No available Barang during the specified time range.</option>
                             @endforelse
                         </select>
+                    </div>
+                    <div class="form-label">
+                        <label for="capacity">Quantity</label>
+                        <input type="text" class="form-control" aria-label="quantity" id="quantity" name="quantity">
                     </div>
                     <div class="form-label">
                         <label for="description">Keperluan</label>

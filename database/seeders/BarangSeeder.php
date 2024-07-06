@@ -14,12 +14,33 @@ class BarangSeeder extends Seeder
     public function run(): void
     {
         $faker = \Faker\Factory::create();
-        for ($i=0; $i < 50 ; $i++) {
-            $room = Barang::create([
-                'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
-                'name' => $faker->word,
-                'quantity' => 20
-            ]);
-        }
+        // for ($i=0; $i < 50 ; $i++) {
+        //     $room = Barang::create([
+        //         'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+        //         'name' => $faker->word,
+        //         'quantity' => 20
+        //     ]);
+        // }
+        
+        $barangs = Barang::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Laptop',
+            'quantity' => 20
+        ]);
+        $barangs = Barang::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Mouse',
+            'quantity' => 20
+        ]);
+        $barangs = Barang::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Keyboard',
+            'quantity' => 20
+        ]);
+        $barangs = Barang::create([
+            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'name' => 'Kabel Role',
+            'quantity' => 20
+        ]);
     }
 }
