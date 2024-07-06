@@ -4,11 +4,25 @@
     <div class="container px-5">
         <section class="content-header">
             <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                <h1>Peminjaman Ruangan</h1>
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Peminjaman Ruangan</h1>
+                    </div>
                 </div>
-            </div>
+                @if (session()->has('success'))
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="alert alert-primary" role="alert">
+                                {{session('success')}}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Peminjaman Ruangan</h1>
+                    </div>
+                </div>
             </div><!-- /.container-fluid -->
         </section>
 

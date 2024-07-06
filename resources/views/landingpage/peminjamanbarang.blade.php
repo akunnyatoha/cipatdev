@@ -3,6 +3,11 @@
 <section class="py-5">
     <div class="container px-5">
         <h2 class="text-center">Form Peminjaman Barang</h2><br>
+        @if (session()->has('error'))
+            <div class="alert alert-danger" role="alert">
+                {{session('error')}}
+            </div>
+        @endif
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6">
                 @if(isset($availableBarangs))

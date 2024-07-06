@@ -96,22 +96,26 @@ class LandingController extends Controller
             $name = Auth::user()->name;
             if($request->barang) {
                 $getQuantityBarang = Barang::where('id', $request->barang)->first();
-                $sisaQuantity = intval($getQuantityBarang->quantity) - intval($request->quantity);
-
-                $peminjaman = PeminjamanBarang::create([
-                    'email' => $email,
-                    'name' => $name,
-                    'phone' => $phone,
-                    'barang_id' => $request->barang,
-                    'description' => $request->description,
-                    'start_datetime' => $request->tanggalawal,
-                    'end_datetime' => $request->tanggalakhir,
-                    'quantity' => $request->quantity,
-                    'status' => $status,
-                    'created_by' => Auth::id(),
-                ]);
-
-                $updateQtyBarang = Barang::where('id', $request->barang)->update(['quantity' => $sisaQuantity]);
+                if(intval($request->quantity) <= intval($getQuantityBarang->quantity)) {
+                    $sisaQuantity = intval($getQuantityBarang->quantity) - intval($request->quantity);
+    
+                    $peminjaman = PeminjamanBarang::create([
+                        'email' => $email,
+                        'name' => $name,
+                        'phone' => $phone,
+                        'barang_id' => $request->barang,
+                        'description' => $request->description,
+                        'start_datetime' => $request->tanggalawal,
+                        'end_datetime' => $request->tanggalakhir,
+                        'quantity' => $request->quantity,
+                        'status' => $status,
+                        'created_by' => Auth::id(),
+                    ]);
+    
+                    $updateQtyBarang = Barang::where('id', $request->barang)->update(['quantity' => $sisaQuantity]);
+                } else {
+                    return redirect()->route('landingpage.peminjamanbarang')->with('error', 'jumlah permintaan melebihi jumlah barang yang tersedia!');
+                }
                 // dd($updateQtyBarang);
             } else {
                 $peminjaman = Peminjaman::create([

@@ -18,17 +18,29 @@ class LaporanController extends Controller
 {
     public function index(Request $request) {
         $laporanFix = [];
-        $getPeminjamanBarang = PeminjamanBarang::with('barangs')->where('status', 'accept')->orderBy('created_at', 'desc')->get();
-        $getPeminjamanRuangan = Peminjaman::with('rooms')->where('status', 'accept')->orderBy('created_at', 'desc')->get();
+        $getPeminjamanBarang = PeminjamanBarang::with('barangs')->where('status', 'accept');
+        $getPeminjamanRuangan = Peminjaman::with('rooms')->where('status', 'accept');
 
+        if($request['periodeAwal']) {
+            $getPeminjamanBarang = $getPeminjamanBarang->where('created_at', '>=', $request['periodeAwal']);
+            $getPeminjamanRuangan = $getPeminjamanRuangan->where('created_at', '>=', $request['periodeAwal']);
+        }
+        if($request['periodeAkhir']) {
+            $getPeminjamanBarang = $getPeminjamanBarang->where('created_at', '<=', $request['periodeAkhir']);
+            $getPeminjamanRuangan = $getPeminjamanRuangan->where('created_at', '<=', $request['periodeAkhir']);
+        }
+
+        $getPeminjamanBarang = $getPeminjamanBarang->orderBy('created_at', 'ASC')->get();
+        $getPeminjamanRuangan = $getPeminjamanRuangan->orderBy('created_at', 'ASC')->get();
+        
         if (Auth::user()->role->name == 'Dekan') {
             for ($i=0; $i < count($getPeminjamanBarang); $i++) { 
                 array_push($laporanFix, [
-                    "name" => $getPeminjamanBarang[$i]->name,
+                    "name_peminjam" => $getPeminjamanBarang[$i]->name,
                     "email" => $getPeminjamanBarang[$i]->email,
                     "phone" => $getPeminjamanBarang[$i]->phone,
                     "kategori" => 'Barang',
-                    "name_barang" => $getPeminjamanBarang[$i]->barangs->name,
+                    "title" => $getPeminjamanBarang[$i]->barangs->name,
                     "keperluan" => $getPeminjamanBarang[$i]->description,
                     "tgl_mulai" => $getPeminjamanBarang[$i]->start_datetime,
                     "tgl_selesai" => $getPeminjamanBarang[$i]->end_datetime,
@@ -38,11 +50,11 @@ class LaporanController extends Controller
 
             for ($j=0; $j < count($getPeminjamanRuangan); $j++) { 
                 array_push($laporanFix, [
-                    "name" => $getPeminjamanRuangan[$j]->name,
+                    "name_peminjam" => $getPeminjamanRuangan[$j]->name,
                     "email" => $getPeminjamanRuangan[$j]->email,
                     "phone" => $getPeminjamanRuangan[$j]->phone,
-                    "kategori" => 'Barang',
-                    "name_barang" => $getPeminjamanRuangan[$j]->rooms->name,
+                    "kategori" => 'Ruangan',
+                    "title" => $getPeminjamanRuangan[$j]->rooms->name,
                     "keperluan" => $getPeminjamanRuangan[$j]->description,
                     "tgl_mulai" => $getPeminjamanRuangan[$j]->start_datetime,
                     "tgl_selesai" => $getPeminjamanRuangan[$j]->end_datetime,
@@ -52,11 +64,11 @@ class LaporanController extends Controller
         } else if(Auth::user()->role->name == 'Perkuliahan') {
             for ($j=0; $j < count($getPeminjamanRuangan); $j++) { 
                 array_push($laporanFix, [
-                    "name" => $getPeminjamanRuangan[$j]->name,
+                    "name_peminjam" => $getPeminjamanRuangan[$j]->name,
                     "email" => $getPeminjamanRuangan[$j]->email,
                     "phone" => $getPeminjamanRuangan[$j]->phone,
-                    "kategori" => 'Barang',
-                    "name_barang" => $getPeminjamanRuangan[$j]->rooms->name,
+                    "kategori" => 'Ruangan',
+                    "title" => $getPeminjamanRuangan[$j]->rooms->name,
                     "keperluan" => $getPeminjamanRuangan[$j]->description,
                     "tgl_mulai" => $getPeminjamanRuangan[$j]->start_datetime,
                     "tgl_selesai" => $getPeminjamanRuangan[$j]->end_datetime,
@@ -66,11 +78,11 @@ class LaporanController extends Controller
         } else if(Auth::user()->role->name == 'BKA') {
             for ($i=0; $i < count($getPeminjamanBarang); $i++) { 
                 array_push($laporanFix, [
-                    "name" => $getPeminjamanBarang[$i]->name,
+                    "name_peminjam" => $getPeminjamanBarang[$i]->name,
                     "email" => $getPeminjamanBarang[$i]->email,
                     "phone" => $getPeminjamanBarang[$i]->phone,
                     "kategori" => 'Barang',
-                    "name_barang" => $getPeminjamanBarang[$i]->barangs->name,
+                    "title" => $getPeminjamanBarang[$i]->barangs->name,
                     "keperluan" => $getPeminjamanBarang[$i]->description,
                     "tgl_mulai" => $getPeminjamanBarang[$i]->start_datetime,
                     "tgl_selesai" => $getPeminjamanBarang[$i]->end_datetime,
@@ -79,6 +91,6 @@ class LaporanController extends Controller
             }
         }
 
-        dd($laporanFix);
+        return view('dashboardpage.laporan.index', compact('laporanFix'));
     }
 }

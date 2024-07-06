@@ -153,7 +153,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('laporan')}}" class="nav-link">
+            <a href="{{route('dashboardpage.laporan.index')}}" class="nav-link">
               <i class="nav-icon fas fa-barcode"></i>
               <p>
                 Laporan Peminjaman
@@ -193,7 +193,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('laporan')}}" class="nav-link">
+            <a href="{{route('dashboardpage.laporan.index')}}" class="nav-link">
               <i class="nav-icon fas fa-barcode"></i>
               <p>
                 Laporan Peminjaman
@@ -249,7 +249,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('laporan')}}" class="nav-link">
+            <a href="{{route('dashboardpage.laporan.index')}}" class="nav-link">
               <i class="nav-icon fas fa-barcode"></i>
               <p>
                 Laporan Peminjaman

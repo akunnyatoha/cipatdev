@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,7 +46,7 @@ Route::middleware('auth')->group(function(){
 
     Route::middleware('role:Admin|Dekan|BKA|Perkuliahan')->group(function(){
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+        Route::get('/laporan-peminjaman', [LaporanController::class, 'index'])->name('dashboardpage.laporan.index');
         Route::get('/calendar', [DashboardController::class, 'calendar'])->name('dashboardpage.calendar');
         Route::get('/ruangan', [RuangController::class, 'index'])->name('dashboardpage.ruangan.index');
         Route::get('/barang', [BarangController::class, 'index'])->name('dashboardpage.barang.index');
@@ -92,6 +93,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/slider/edit/{id}', [SliderController::class, 'edit'])->name('dashboardpage.denah.edit');
         Route::put('/slider/{id}', [SliderController::class, 'update'])->name('dashboardpage.denah.update');
         Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('dashboardpage.denah.destroy');
+
 
     });
     Route::middleware('role:admin')->group(function(){
