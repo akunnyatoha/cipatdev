@@ -6,8 +6,8 @@
         <div class="row gx-5 align-items-center justify-content-center">
             <div class="col-lg-5 col-xl-7 col-xxl-6">
                 <div class="my-5 text-center text-xl-start">
-                    <h4 class="display-7 fw-bolder text-white mb-2">PEMINJAMAN RUANGAN FAKULTAS TEKNIK</h4>
-                    <h4 class="display-7 fw-bolder text-white mb-2">UNIVERSITAS MUHAMMADIYAH JAKARTA</h4>
+                    <h4 class="display-7 fw-bolder text-white mb-2">PEMINJAMAN RUANGAN DAN BARANG FAKULTAS TEKNIK UNIVERSITAS MUHAMMADIYAH JAKARTA</h4>
+                    {{-- <h4 class="display-7 fw-bolder text-white mb-2"></h4> --}}
                 </div>
             </div>
             <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="{{asset('storage/landing/umj.jpg')}}" alt="..." /></div>
