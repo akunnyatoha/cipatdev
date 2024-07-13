@@ -111,7 +111,7 @@ Route::middleware('auth')->group(function(){
         Route::delete('/pengembalianbarangs/{id}', [PengembalianBarangController::class, 'destroy'])->name('dashboardpage.pengembalianbarang.destroy');
 
     });
-    Route::middleware('role:admin')->group(function(){
+    Route::middleware('role:Admin')->group(function(){
         Route::get('/user', [UserController::class, 'index'])->name('dashboardpage.user.index');
         Route::get('/user/create', [UserController::class, 'create'])->name('dashboardpage.user.create');
         Route::post('/user',[UserController::class,'store'])->name('dashboardpage.user.store');

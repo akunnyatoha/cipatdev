@@ -21,19 +21,17 @@ class UserController extends Controller
         return view('dashboardpage.user.create', compact('roles'));
     }
     public function store(Request $request){
-        // ubah nama file
-        $imageName = '-';
-        if($request->image) {
-            $imageName = time() . '.' . $request->image->extension();
+        $validateImg = $request->validate([
+            "image" => 'image|file|max:2048'
+        ]);
+        if($request->file('image')) {
+            $validateImg['image'] = $request->file('image')->store('user-images');
         }
-
-        // simpan file ke folder public/product
-        Storage::putFileAs('public/user', $request->image, $imageName);
         $user = User::create([
             'id' => $request->noinduk,
             'role_id' => $request->role,
             'name' => $request->name,
-            'image' => $imageName,
+            'image' => $validateImg['image'],
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
@@ -47,33 +45,36 @@ class UserController extends Controller
         return view('dashboardpage.user.edit', compact('user', 'roles'));
     }
     public function update(Request $request, $id){
-        if ($request->hasFile('image')) {
-            $old_image = User::find($id)->image;
-            Storage::delete('public/user/'.$old_image);
-            $imageName = time().'.'.$request->image->extension();
-            Storage::putFileAs('public/user', $request->file('image'), $imageName);
-            User::where('id', $id)->update([
-                'id' => $request->noinduk,
-                'name' => $request->name,
-                'image' => $imageName,
-                'email' => $request->email,
-                'phone' => $request->phone,
-            ]);
+        $validateImage = $request->validate([
+            "image" => 'image|file|max:2048'
+        ]);
+        // dd($validateImage);
 
+        if($request->file('image')) {
+            if($request->old_image) {
+                Storage::delete($request->old_image);
+            }
+            $validateImage['image'] = $request->file('image')->store('user-images');
+            // $nameImage = $request['image']
         }
-        else {
-            User::where('id', $id)->update([
-                'id' => $request->noinduk,
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-            ]);
-        }
+
+        
+        User::where('id', $id)->update([
+            'id' => $request->noinduk,
+            'name' => $request->name,
+            'image' => $validateImage['image'],
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+
         return redirect()->route('dashboardpage.user.index');
     }
     public function destroy($id)
     {
         $user = User::find($id);
+        if($user->image) {
+            Storage::delete($user->image);
+        }
         $user->delete();
         return redirect()->route('dashboardpage.user.index');
     }

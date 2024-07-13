@@ -51,11 +51,16 @@
                             <label for="phone">Telefon</label>
                             <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefon" value="{{ $user->phone }}">
                         </div>
-
                         <div class="form-group">
-                            <label for="image" class="form-label">Avatar</label>
-                            <input class="form-control" type="file" name="image" id="image" accept=".jpg, .jpeg, .png., .webp">
-                        </div>
+                          <label for="image" class="form-label">Avatar</label>
+                          <input type="hidden" class="form-control" id="old_image" name="old_image"  value="{{ $user->image }}">
+                          <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image">
+                          @error('image')
+                              <div class="invalid-feedback">
+                                {{$message}}
+                              </div>
+                          @enderror
+                      </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">

@@ -12,7 +12,7 @@
                                         <i class="fas fa-users"></i> No Image
                                     </a>
                                 @else
-                                <img class="photo" src="{{ asset('storage/user/' . Auth::user()->image) }}" alt="{{ Auth::user()->name }}">
+                                <img class="photo" src="{{ asset('storage/' . Auth::user()->image) }}" alt="{{ Auth::user()->name }}">
                                 @endif
                             <p class="fw-bold h4 mt-3 profile">{{ Auth::user()->name }}</p>
                         </div>

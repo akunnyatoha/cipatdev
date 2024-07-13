@@ -24,29 +24,23 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Validasi form
-        $request->validate([
+        $validateData = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // sesuaikan dengan kebutuhan
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        
 
-        // Update data profil
-        $user->name = $request->input('name');
-        $user->phone = $request->input('phone');
-
-        // Cek apakah ada file gambar yang diunggah
-        if ($request->hasFile('image')) {
-            // Proses upload gambar ke direktori 'public/user'
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            Storage::putFileAs('public/user', $image, $imageName);
-
-            // Simpan nama file gambar ke dalam kolom 'image' pada tabel users
-            $user->image = $imageName;
+        if($request->file('image')) {
+            if($request->old_image) {
+                Storage::delete($request->old_image);
+            }
+            $validateData['image'] = $request->file('image')->store('user-images');
+            // $nameImage = $request['image']
         }
 
         // Simpan perubahan
-        $user->save();
+        $updateData = User::where('id', $user->id)->update($validateData);
 
         // Redirect ke halaman profil dengan pesan sukses
         return redirect()->route('landingpage.profile')->with('success', 'Profile updated successfully');

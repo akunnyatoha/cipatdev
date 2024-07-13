@@ -50,7 +50,7 @@
                                         <i class="fas fa-users"></i> No Image
                                     </a>
                                 @else
-                                    <img src="{{ asset('storage/user/' . $user->image) }}" alt="{{ $user->name }}" style="max-width: 50px">
+                                    <img src="{{ asset('storage/' . $user->image) }}" alt="{{ $user->name }}" style="max-width: 50px">
                                 @endif
                             </td>
                             <td>{{ $user->name }}</td>

@@ -53,7 +53,12 @@
 
                         <div class="form-group">
                             <label for="image" class="form-label">Avatar</label>
-                            <input class="form-control" type="file" name="image" id="image" accept=".jpg, .jpeg, .png., .webp">
+                            <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image">
+                            @error('image')
+                                <div class="invalid-feedback">
+                                  {{$message}}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="password" class="form-label">Password</label>

@@ -21,6 +21,7 @@
                             </div>
                             <div class="align-items-center justify-content-between">
                                 <p class="py-2 profile">Image</p>
+                                <input type="hidden" name="old_image" id="old_image" value="{{Auth::user()->image}}">
                                 <input type="file" name="image" class="form-control">
                             </div>
                             <div class="align-items-center justify-content-between">
