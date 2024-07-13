@@ -11,6 +11,7 @@ class PeminjamanBarang extends Model
     protected $table = "peminjaman_barangs";
     protected $fillable = [
         'id',
+        'code',
         'email',
         'name',
         'phone',

@@ -12,6 +12,7 @@ return new class extends Migration
     {
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
             $table->string('email');
             $table->string('name');
             $table->string('phone')->nullable();

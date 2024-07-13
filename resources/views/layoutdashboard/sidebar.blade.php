@@ -10,7 +10,6 @@
       @if (Auth::user()->role->name == 'Perkuliahan')
         <span class="brand-text font-weight-light">Peminjaman Ruangan</span>
       @endif
-
     </a>
 
     <!-- Sidebar -->
@@ -81,6 +80,22 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{route('dashboardpage.pengembalian.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Pengembalian Ruangan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.pengembalianbarang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Pengembalian Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('dashboardpage.user.index')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -145,7 +160,23 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('dashboardpage.pengembalian.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Pengembalian Ruangan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.pengembalianbarang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Pengembalian Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.denah.index')}}" class="nav-link">
               <i class="nav-icon fas fa-barcode"></i>
               <p>
                 Denah
@@ -188,7 +219,15 @@
             <a href="{{route('dashboardpage.peminjamanbarang.index')}}" class="nav-link">
               <i class="nav-icon fas fa-inbox"></i>
               <p>
-                Peminjaman
+                Peminjaman Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.pengembalianbarang.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Pengembalian Barang
               </p>
             </a>
           </li>
@@ -236,12 +275,20 @@
             <a href="{{route('dashboardpage.peminjaman.index')}}" class="nav-link">
               <i class="nav-icon fas fa-inbox"></i>
               <p>
-                Peminjaman
+                Peminjaman Ruangan
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('dashboardpage.pengembalian.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Pengembalian Ruangan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('dashboardpage.denah.index')}}" class="nav-link">
               <i class="nav-icon fas fa-barcode"></i>
               <p>
                 Denah

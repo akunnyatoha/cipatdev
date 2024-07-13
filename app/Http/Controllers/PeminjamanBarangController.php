@@ -28,9 +28,30 @@ class PeminjamanBarangController extends Controller
         return view('dashboardpage.peminjamanbarang.datacsv',compact('barangs'));
     }
     public function store(Request $request){
+        $getCodePeminjamanLast = PeminjamanBarang::orderBy('code', 'DESC')->first();
+        $codeFix = '';
+        $now = getdate(date("U"));
+        $year = $now['year'];
+        if($getCodePeminjamanLast != null) {
+            // RG/0001/2024
+            $split = str_split($query['code']);
+            $codeFront = $split[0] . $split[1];
+            $nourut = $split[3] . $split[4] . $split[5] . $split[6];
+            $getYear = $split[8] . $split[9] .$split[10] . $split [11];
+            if($year == $getYear) {
+                $nourut = intval($nourut) + 1;
+                $nourut = sprintf('%04s', $nourut);
+                $codeFix = 'BR' . '/'. $nourut . '/' . $year;
+            } else {
+                $codeFix = 'BR' . '/'. '0001' . '/' . $year;
+            }
+        } else {
+            $codeFix = 'BR' . '/'. '0001' . '/' . $year;
+        }
         if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Dekan' || Auth::user()->role->name == 'BKA') {
             $status = 'accepted';
             $peminjaman = PeminjamanBarang::create([
+                'code' => $codeFix,
                 'email' => $request->email,
                 'name' => $request->name,
                 'phone' => $request->phone,
@@ -55,6 +76,7 @@ class PeminjamanBarangController extends Controller
             $name = Auth::user()->name;
             $status = 'pending';
             $peminjaman = PeminjamanBarang::create([
+                'code' => $codeFix,
                 'email' => $email,
                 'name' => $name,
                 'phone' => $phone,

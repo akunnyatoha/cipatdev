@@ -10,13 +10,15 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Barang</li>
+            <li class="breadcrumb-item active">Laporan</li>
           </ol>
         </div>
       </div>
     </div><!-- /.container-fluid -->
 </section>
-
+ {{-- @php
+     dd($laporanFix);
+ @endphp --}}
 
 <!-- Main content -->
 <section class="content">
@@ -24,9 +26,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <table id="example1" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
                                   <th>No</th>
                                   <th>Kategori</th>
@@ -39,33 +43,27 @@
                                   <th>Kapasitas / Quantity</th>
                                   <th>Keperluan</th>
                                 </tr>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (count($laporanFix) > 0)
+                            </thead>
+                            <tbody>
                                 <?php $no = 1; ?>
-                                @foreach ($laporanFix as $i)
+                                  @for($i = 0; $i < count($laporanFix); $i++)
                                     <tr>
                                         <td>{{$no}}</td>
-                                        <td>{{$i->kategori}}</td>
-                                        <td>{{$i->email}}</td>
-                                        <td>{{$i->name_peminjam}}</td>
-                                        <td>{{$i->phone}}</td>
-                                        <td>{{$i->title}}</td>
-                                        <td>{{$i->tgl_mulai}}</td>
-                                        <td>{{$i->tgl_akhir}}</td>
-                                        <td>{{$i->capacity_quantity}}</td>
-                                        <td>{{$i->keperluan}}</td>
+                                        <td>{{$laporanFix[$i]['kategori']}}</td>
+                                        <td>{{$laporanFix[$i]['email']}}</td>
+                                        <td>{{$laporanFix[$i]['name_peminjam']}}</td>
+                                        <td>{{$laporanFix[$i]['phone']}}</td>
+                                        <td>{{$laporanFix[$i]['title']}}</td>
+                                        <td>{{$laporanFix[$i]['tgl_mulai']}}</td>
+                                        <td>{{$laporanFix[$i]['tgl_selesai']}}</td>
+                                        <td>{{$laporanFix[$i]['capacity_quantity']}}</td>
+                                        <td>{{$laporanFix[$i]['keperluan']}}</td>
                                     </tr>
                                     <?php $no++; ?>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="10">Kosong</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                                @endfor
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

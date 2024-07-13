@@ -28,9 +28,30 @@ class PeminjamanController extends Controller
         return view('dashboardpage.peminjaman.datacsv',compact('rooms'));
     }
     public function store(Request $request){
+        $getCodePeminjamanLast = Peminjaman::orderBy('code', 'DESC')->first();
+        $codeFix = '';
+        $now = getdate(date("U"));
+        $year = $now['year'];
+        if($getCodePeminjamanLast != null) {
+            // RG/0001/2024
+            $split = str_split($query['code']);
+            $codeFront = $split[0] . $split[1];
+            $nourut = $split[3] . $split[4] . $split[5] . $split[6];
+            $getYear = $split[8] . $split[9] .$split[10] . $split [11];
+            if($year == $getYear) {
+                $nourut = intval($nourut) + 1;
+                $nourut = sprintf('%04s', $nourut);
+                $codeFix = 'RG' . '/'. $nourut . '/' . $year;
+            } else {
+                $codeFix = 'RG' . '/'. '0001' . '/' . $year;
+            }
+        } else {
+            $codeFix = 'RG' . '/'. '0001' . '/' . $year;
+        }
         if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Dekan' || Auth::user()->role->name == 'Perkuliahan') {
             $status = 'accepted';
             $peminjaman = Peminjaman::create([
+                'code' => $codeFix,
                 'email' => $request->email,
                 'name' => $request->name,
                 'phone' => $request->phone,
@@ -48,6 +69,7 @@ class PeminjamanController extends Controller
             $name = Auth::user()->name;
             $status = 'pending';
             $peminjaman = Peminjaman::create([
+                'code' => $codeFix,
                 'email' => $email,
                 'name' => $name,
                 'phone' => $phone,

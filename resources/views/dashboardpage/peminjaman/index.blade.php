@@ -33,6 +33,7 @@
                 <thead>
                 <tr>
                   <th>No</th>
+                  <th>Kode Peminjaman</th>
                   <th>Email</th>
                   <th>Nama</th>
                   <th>Telefon</th>
@@ -50,6 +51,7 @@
                     @foreach ($peminjamans as $peminjaman)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $peminjaman->code }}</td>
                             <td>{{ $peminjaman->email }}</td>
                             <td>{{ $peminjaman->name }}</td>
                             <td>{{ $peminjaman->phone }}</td>

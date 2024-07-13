@@ -11,6 +11,7 @@ class Peminjaman extends Model
     protected $table = "peminjamans";
     protected $fillable = [
         'id',
+        'code',
         'email',
         'name',
         'phone',

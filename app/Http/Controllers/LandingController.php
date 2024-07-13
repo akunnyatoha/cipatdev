@@ -97,9 +97,29 @@ class LandingController extends Controller
             if($request->barang) {
                 $getQuantityBarang = Barang::where('id', $request->barang)->first();
                 if(intval($request->quantity) <= intval($getQuantityBarang->quantity)) {
+                    $getCodePeminjamanLast = PeminjamanBarang::orderBy('code', 'DESC')->first();
+                    $codeFix = '';
+                    $now = getdate(date("U"));
+                    $year = $now['year'];
+                    if($getCodePeminjamanLast != null) {
+                        // RG/0001/2024
+                        $split = str_split($query['code']);
+                        $codeFront = $split[0] . $split[1];
+                        $nourut = $split[3] . $split[4] . $split[5] . $split[6];
+                        $getYear = $split[8] . $split[9] .$split[10] . $split [11];
+                        if($year == $getYear) {
+                            $nourut = intval($nourut) + 1;
+                            $nourut = sprintf('%04s', $nourut);
+                            $codeFix = 'BR' . '/'. $nourut . '/' . $year;
+                        } else {
+                            $codeFix = 'BR' . '/'. '0001' . '/' . $year;
+                        }
+                    } else {
+                        $codeFix = 'BR' . '/'. '0001' . '/' . $year;
+                    }
                     $sisaQuantity = intval($getQuantityBarang->quantity) - intval($request->quantity);
-    
                     $peminjaman = PeminjamanBarang::create([
+                        'code' => $codeFix,
                         'email' => $email,
                         'name' => $name,
                         'phone' => $phone,
@@ -118,18 +138,44 @@ class LandingController extends Controller
                 }
                 // dd($updateQtyBarang);
             } else {
-                $peminjaman = Peminjaman::create([
-                    'email' => $email,
-                    'name' => $name,
-                    'phone' => $phone,
-                    'room_id' => $request->room,
-                    'description' => $request->description,
-                    'start_datetime' => $request->tanggalawal,
-                    'end_datetime' => $request->tanggalakhir,
-                    'capacity' => $request->capacity,
-                    'status' => $status,
-                    'created_by' => Auth::id(),
-                ]);
+                $getCapacityRoom = Room::where('id', $request->room)->first();
+                if(intval($request->capacity) <= intval($getCapacityRoom->capacity)) {
+                    $getCodePeminjamanLast = Peminjaman::orderBy('code', 'DESC')->first();
+                    $codeFix = '';
+                    $now = getdate(date("U"));
+                    $year = $now['year'];
+                    if($getCodePeminjamanLast != null) {
+                        // RG/0001/2024
+                        $split = str_split($query['code']);
+                        $codeFront = $split[0] . $split[1];
+                        $nourut = $split[3] . $split[4] . $split[5] . $split[6];
+                        $getYear = $split[8] . $split[9] .$split[10] . $split [11];
+                        if($year == $getYear) {
+                            $nourut = intval($nourut) + 1;
+                            $nourut = sprintf('%04s', $nourut);
+                            $codeFix = 'RG' . '/'. $nourut . '/' . $year;
+                        } else {
+                            $codeFix = 'RG' . '/'. '0001' . '/' . $year;
+                        }
+                    } else {
+                        $codeFix = 'RG' . '/'. '0001' . '/' . $year;
+                    }
+                    $peminjaman = Peminjaman::create([
+                        'code' => $codeFix,
+                        'email' => $email,
+                        'name' => $name,
+                        'phone' => $phone,
+                        'room_id' => $request->room,
+                        'description' => $request->description,
+                        'start_datetime' => $request->tanggalawal,
+                        'end_datetime' => $request->tanggalakhir,
+                        'capacity' => $request->capacity,
+                        'status' => $status,
+                        'created_by' => Auth::id(),
+                    ]);
+                } else {
+                    return redirect()->route('landingpage.peminjaman')->with('error', 'Jumlah kapasitas melebihi kapasitas ruangan!');
+                }
             }
         return redirect()->route('landingpage.histori')->with('success', 'Peminjaman telah berhasil terkirim');
     }

@@ -18,8 +18,8 @@ class LaporanController extends Controller
 {
     public function index(Request $request) {
         $laporanFix = [];
-        $getPeminjamanBarang = PeminjamanBarang::with('barangs')->where('status', 'accept');
-        $getPeminjamanRuangan = Peminjaman::with('rooms')->where('status', 'accept');
+        $getPeminjamanBarang = PeminjamanBarang::with('barangs')->where('status', 'accepted');
+        $getPeminjamanRuangan = Peminjaman::with('rooms')->where('status', 'accepted');
 
         if($request['periodeAwal']) {
             $getPeminjamanBarang = $getPeminjamanBarang->where('created_at', '>=', $request['periodeAwal']);
@@ -90,6 +90,7 @@ class LaporanController extends Controller
                 ]);
             }
         }
+        // dd($laporanFix);
 
         return view('dashboardpage.laporan.index', compact('laporanFix'));
     }

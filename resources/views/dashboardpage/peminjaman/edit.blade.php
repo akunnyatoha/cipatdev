@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-12">
             <div class="card">
-                <form action="{{ route('dashboardpage.ruangan.update', $peminjaman->id) }}" method="POST">
+                <form action="{{ route('dashboardpage.peminjaman.update', $peminjaman->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="card-body">

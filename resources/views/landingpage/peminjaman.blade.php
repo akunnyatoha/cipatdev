@@ -21,10 +21,6 @@
                         <input type="datetime-local" class="form-control" id="tanggalakhir" name="tanggalakhir" value="{{ $endDatetime }}">
                     </div>
                     <div class="form-label">
-                        <label for="capacity">Kapasitas</label>
-                        <input type="text" class="form-control" aria-label="capacity" id="capacity" name="capacity">
-                    </div>
-                    <div class="form-label">
                         <label for="room">Ruangan Yang Tersedia</label>
                         <select class="form-select" aria-label="ruangan" id="room" name="room">
                             <option selected disabled>- Pilih Ruangan -</option>
@@ -34,6 +30,10 @@
                                 <option disabled>No available rooms during the specified time range.</option>
                             @endforelse
                         </select>
+                    </div>
+                    <div class="form-label">
+                        <label for="capacity">Kapasitas</label>
+                        <input type="text" class="form-control" aria-label="capacity" id="capacity" name="capacity">
                     </div>
                     <div class="form-label">
                         <label for="description">Keperluan</label>
@@ -55,14 +55,14 @@
                     <button type="submit" class="btn btn-primary">Cek Ketersediaan Ruangan</button>
                 </form>
                 <div class="form-label">
-                    <label for="capacity">Kapasitas</label>
-                    <input type="text" class="form-control" aria-label="capacity" id="capacity" name="capacity" disabled>
-                </div>
-                <div class="form-label">
                     <label for="room">Ruangan</label>
                     <select class="form-select" aria-label="ruangan" id="room" name="room" disabled>
                         <option selected disabled>- Pilih Ruangan -</option>
                     </select>
+                </div>
+                <div class="form-label">
+                    <label for="capacity">Kapasitas</label>
+                    <input type="text" class="form-control" aria-label="capacity" id="capacity" name="capacity" disabled>
                 </div>
                 <div class="form-label">
                     <label for="description">Keperluan</label>

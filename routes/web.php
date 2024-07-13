@@ -3,7 +3,9 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\PeminjamanBarangController;
+use App\Http\Controllers\PengembalianBarangController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -94,6 +96,19 @@ Route::middleware('auth')->group(function(){
         Route::put('/slider/{id}', [SliderController::class, 'update'])->name('dashboardpage.denah.update');
         Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('dashboardpage.denah.destroy');
 
+        Route::get('/pengembalians', [PengembalianController::class, 'index'])->name('dashboardpage.pengembalian.index');
+        Route::post('/pengembalians/create', [PengembalianController::class, 'create'])->name('dashboardpage.pengembalian.create');
+        Route::post('/pengembalians', [PengembalianController::class, 'store'])->name('dashboardpage.pengembalian.store');
+        Route::get('/pengembalians/edit/{id}', [PengembalianController::class, 'edit'])->name('dashboardpage.pengembalian.edit');
+        Route::put('/pengembalians/{id}', [PengembalianController::class, 'update'])->name('dashboardpage.pengembalian.update');
+        Route::delete('/pengembalians/{id}', [PengembalianController::class, 'destroy'])->name('dashboardpage.pengembalian.destroy');
+        
+        Route::get('/pengembalianbarangs', [PengembalianBarangController::class, 'index'])->name('dashboardpage.pengembalianbarang.index');
+        Route::post('/pengembalianbarangs/create', [PengembalianBarangController::class, 'create'])->name('dashboardpage.pengembalianbarang.create');
+        Route::post('/pengembalianbarangs', [PengembalianBarangController::class, 'store'])->name('dashboardpage.pengembalianbarang.store');
+        Route::get('/pengembalianbarangs/edit/{id}', [PengembalianBarangController::class, 'edit'])->name('dashboardpage.pengembalianbarang.edit');
+        Route::put('/pengembalianbarangs/{id}', [PengembalianBarangController::class, 'update'])->name('dashboardpage.pengembalianbarang.update');
+        Route::delete('/pengembalianbarangs/{id}', [PengembalianBarangController::class, 'destroy'])->name('dashboardpage.pengembalianbarang.destroy');
 
     });
     Route::middleware('role:admin')->group(function(){
