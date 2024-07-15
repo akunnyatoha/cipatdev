@@ -37,7 +37,8 @@ class PengembalianBarangController extends Controller
                 'pengembalian.description',
             )
         ->get();
-
+        
+        // return $pengembalians;
         return view('dashboardpage.pengembalianbarang.index', compact('pengembalians'));
     }
 
@@ -95,7 +96,6 @@ class PengembalianBarangController extends Controller
         $findBarang = Barang::find(intval($request->barang_id));
         $qty = intval($findBarang->quantity) + intval($request->quantity);
         $findBarang->update(["quantity" => $qty]);
-
         return redirect()->route('dashboardpage.pengembalianbarang.index')->with('success', 'Data peminjaman dengan kode ' . $request->code_peminjaman . ' telah dikembalikan');
     }
 

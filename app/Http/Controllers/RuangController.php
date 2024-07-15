@@ -16,7 +16,7 @@ class RuangController extends Controller
     }
     public function store(Request $request){
         $room = Room::create([
-            'id'=>$request->code,
+            'code'=>$request->code,
             'name'=>$request->name,
             'floor'=>$request->floor,
             'building'=>$request->building,
@@ -30,7 +30,7 @@ class RuangController extends Controller
     }
     public function update(Request $request, $id){
         Room::where('id',$id)->update([
-            'id'=>$request->code,
+            'code'=>$request->code,
             'name'=>$request->name,
             'floor'=>$request->floor,
             'building'=>$request->building,

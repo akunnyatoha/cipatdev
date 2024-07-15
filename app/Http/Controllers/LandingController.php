@@ -103,7 +103,7 @@ class LandingController extends Controller
                     $year = $now['year'];
                     if($getCodePeminjamanLast != null) {
                         // RG/0001/2024
-                        $split = str_split($query['code']);
+                        $split = str_split($getCodePeminjamanLast['code']);
                         $codeFront = $split[0] . $split[1];
                         $nourut = $split[3] . $split[4] . $split[5] . $split[6];
                         $getYear = $split[8] . $split[9] .$split[10] . $split [11];
@@ -146,7 +146,7 @@ class LandingController extends Controller
                     $year = $now['year'];
                     if($getCodePeminjamanLast != null) {
                         // RG/0001/2024
-                        $split = str_split($query['code']);
+                        $split = str_split($getCodePeminjamanLast['code']);
                         $codeFront = $split[0] . $split[1];
                         $nourut = $split[3] . $split[4] . $split[5] . $split[6];
                         $getYear = $split[8] . $split[9] .$split[10] . $split [11];

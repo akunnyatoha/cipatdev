@@ -26,16 +26,25 @@ class UserController extends Controller
         ]);
         if($request->file('image')) {
             $validateImg['image'] = $request->file('image')->store('user-images');
+            $user = User::create([
+                'id' => $request->noinduk,
+                'role_id' => $request->role,
+                'name' => $request->name,
+                'image' => $validateImg['image'],
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+            ]);
+        } else {
+            $user = User::create([
+                'id' => $request->noinduk,
+                'role_id' => $request->role,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+            ]);
         }
-        $user = User::create([
-            'id' => $request->noinduk,
-            'role_id' => $request->role,
-            'name' => $request->name,
-            'image' => $validateImg['image'],
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-        ]);
 
         return redirect()->route('dashboardpage.user.index');
     }

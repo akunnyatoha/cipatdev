@@ -42,7 +42,7 @@
                 <tbody>
                     @foreach ($rooms as $room)
                         <tr>
-                            <td>{{ $room->id }}</td>
+                            <td>{{ $room->code }}</td>
                             <td>{{ $room->name }}</td>
                             <td>{{ $room->floor }}</td>
                             <td>{{ $room->building }}</td>

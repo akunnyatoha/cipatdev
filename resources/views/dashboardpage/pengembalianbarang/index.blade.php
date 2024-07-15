@@ -67,6 +67,7 @@
                                                 <td>{{$i->name}}</td>
                                                 <td>{{$i->phone}}</td>
                                                 <td>{{$i->barang_name}}</td>
+                                                <td>{{$i->quantity}}</td>
                                                 <td>{{$i->tgl_pengembalian}}</td>
                                                 <td>{{$i->description}}</td>
                                                 <td>

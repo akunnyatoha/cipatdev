@@ -23,42 +23,48 @@ class RoomSeeder extends Seeder
         //     ]);
         // }
         $room = Room::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'id' => 1,
+            'code' => "A0001",
             'name' => 'Jasmin',
             'floor'=> 1,
             'capacity' => $faker->numberBetween($min = 30, $max = 100),
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'id' => 2,
+            'code' => "A0002",
             'name' => 'Melati',
             'floor'=> 1,
             'capacity' => $faker->numberBetween($min = 30, $max = 100),
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'id' => 3,
+            'code' => "A0003",
             'name' => 'Anggrek',
             'floor'=> 1,
             'capacity' => $faker->numberBetween($min = 30, $max = 100),
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'id' => 4,
+            'code' => "A0004",
             'name' => 'Dahlia',
             'floor'=> 2,
             'capacity' => $faker->numberBetween($min = 30, $max = 100),
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'id' => 5,
+            'code' => "A0005",
             'name' => 'Aster',
             'floor'=> 2,
             'capacity' => $faker->numberBetween($min = 30, $max = 100),
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'id' => 6,
+            'code' => "A0006",
             'name' => 'Sakura',
             'floor'=> 2,
             'capacity' => $faker->numberBetween($min = 30, $max = 100),

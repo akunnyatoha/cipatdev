@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
             'name' => 'Perkuliahan',
         ]);
 
-        //Rumah Tangga
+        //BKA
         Role::create([
             'name' => 'BKA',
         ]);

@@ -5,11 +5,11 @@
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Peminjaman Ruangan</h1>
+                    <div class="col">
+                        <h1>Peminjaman Ruangan dan Barang</h1>
                     </div>
                 </div>
-                @if (session()->has('success'))
+                {{-- @if (session()->has('success'))
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <div class="alert alert-primary" role="alert">
@@ -17,12 +17,12 @@
                             </div>
                         </div>
                     </div>
-                @endif
-                <div class="row mb-2">
+                @endif --}}
+                {{-- <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>Peminjaman Ruangan</h1>
                     </div>
-                </div>
+                </div> --}}
             </div><!-- /.container-fluid -->
         </section>
 

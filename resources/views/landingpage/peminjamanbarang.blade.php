@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-label">
                         <label for="capacity">Quantity</label>
-                        <input type="text" class="form-control" aria-label="quantity" id="quantity" name="quantity">
+                        <input type="number" class="form-control" aria-label="quantity" id="quantity" name="quantity">
                     </div>
                     <div class="form-label">
                         <label for="description">Keperluan</label>
@@ -56,7 +56,7 @@
                 </form>
                 <div class="form-label">
                     <label for="quantity">Quantity</label>
-                    <input type="text" class="form-control" aria-label="quantity" id="quantity" name="quantity" disabled>
+                    <input type="number" class="form-control" aria-label="quantity" id="quantity" name="quantity" disabled>
                 </div>
                 <div class="form-label">
                     <label for="barang">Barang</label>
