@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'phone' => $faker->phoneNumber,
         ]);
-        // Dekan
+        // perkuliahan
         $user = User::create([
             'id'=> $faker->unique()->numberBetween($min = 100000, $max = 999999),
             'role_id' => 3,
@@ -44,12 +44,12 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'phone' => $faker->phoneNumber,
         ]);
-        // Dekan
+        // BKA
         $user = User::create([
             'id'=> $faker->unique()->numberBetween($min = 100000, $max = 999999),
             'role_id' => 4,
-            'name' => 'Rumah Tangga',
-            'email' => 'rumahtangga@email.test',
+            'name' => 'BKA',
+            'email' => 'bkaftumj@email.test',
             'password' => Hash::make('password'),
             'phone' => $faker->phoneNumber,
         ]);
