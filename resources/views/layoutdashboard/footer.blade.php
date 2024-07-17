@@ -1,3 +1,3 @@
 <footer class="main-footer">
-    <strong>Nurzaman Fajri</strong>
+    <strong>Nur Zaman Fajri</strong>
 </footer>
