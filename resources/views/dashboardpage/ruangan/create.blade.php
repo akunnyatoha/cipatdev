@@ -22,6 +22,15 @@
       <div class="row">
         <div class="col-12">
             <div class="card">
+              @if (session()->has('error'))
+              <div class="row mb-2">
+                  <div class="col">
+                      <div class="alert alert-error" role="alert">
+                          {{session('error')}}
+                      </div>
+                  </div>
+              </div>
+              @endif
                 <form action="{{route('dashboardpage.ruangan.store')}}" method="POST">
                     @csrf
                     <div class="card-body">

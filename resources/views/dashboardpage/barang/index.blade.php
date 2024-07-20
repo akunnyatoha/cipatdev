@@ -31,6 +31,7 @@
               <table id="example1" class="table table-bordered table-hover">
                 <thead>
                 <tr>
+                  <th>No</th>
                   <th>Kode Barang</th>
                   <th>Nama Barang</th>
                   <th>Quantity</th>
@@ -38,9 +39,11 @@
                 </tr>
                 </thead>
                 <tbody>
+                  <?php $no = 1; ?>
                     @foreach ($barangs as $barang)
                         <tr>
-                            <td>{{ $barang->id }}</td>
+                            <td>{{ $no }}</td>
+                            <td>{{ $barang->code }}</td>
                             <td>{{ $barang->name }}</td>
                             <td>{{ $barang->quantity }}</td>
                             <td>
@@ -52,6 +55,7 @@
                                 </form>
                             </td>
                         </tr>
+                        <?php $no++; ?>
                     @endforeach
                 </tbody>
               </table>

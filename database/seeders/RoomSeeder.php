@@ -31,7 +31,6 @@ class RoomSeeder extends Seeder
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => 2,
             'code' => "A0002",
             'name' => 'Melati',
             'floor'=> 1,
@@ -39,7 +38,6 @@ class RoomSeeder extends Seeder
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => 3,
             'code' => "A0003",
             'name' => 'Anggrek',
             'floor'=> 1,
@@ -47,7 +45,6 @@ class RoomSeeder extends Seeder
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => 4,
             'code' => "A0004",
             'name' => 'Dahlia',
             'floor'=> 2,
@@ -55,7 +52,6 @@ class RoomSeeder extends Seeder
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => 5,
             'code' => "A0005",
             'name' => 'Aster',
             'floor'=> 2,
@@ -63,12 +59,11 @@ class RoomSeeder extends Seeder
             'building' => 'FTUMJ',
         ]);
         $room = Room::create([
-            'id' => 6,
-            'code' => "A0006",
-            'name' => 'Sakura',
+            'code' => "A203",
+            'name' => 'Djoeanda',
             'floor'=> 2,
-            'capacity' => $faker->numberBetween($min = 30, $max = 100),
-            'building' => 'FTUMJ',
+            'capacity' => 100,
+            'building' => 'A',
         ]);
     }
 }

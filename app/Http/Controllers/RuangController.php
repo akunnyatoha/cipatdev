@@ -15,6 +15,10 @@ class RuangController extends Controller
         return view('dashboardpage.ruangan.create');
     }
     public function store(Request $request){
+        $getRuangan = Room::where('code', $request->code);
+        if($getRuangan != null) {
+            return redirect()->route('dashboardpage.ruangan.create')->with('error', 'Code ruangan sudah ada!');
+        }
         $room = Room::create([
             'code'=>$request->code,
             'name'=>$request->name,
@@ -29,6 +33,10 @@ class RuangController extends Controller
         return view('dashboardpage.ruangan.edit',compact('room'));
     }
     public function update(Request $request, $id){
+        $getRuangan = Room::where('code', $request->code);
+        if($getRuangan != null) {
+            return redirect()->back()->with('error', 'Code ruangan sudah ada!');
+        }
         Room::where('id',$id)->update([
             'code'=>$request->code,
             'name'=>$request->name,

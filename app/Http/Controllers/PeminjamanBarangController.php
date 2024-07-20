@@ -34,7 +34,7 @@ class PeminjamanBarangController extends Controller
         $year = $now['year'];
         if($getCodePeminjamanLast != null) {
             // RG/0001/2024
-            $split = str_split($query['code']);
+            $split = str_split($getCodePeminjamanLast['code']);
             $codeFront = $split[0] . $split[1];
             $nourut = $split[3] . $split[4] . $split[5] . $split[6];
             $getYear = $split[8] . $split[9] .$split[10] . $split [11];
@@ -205,6 +205,10 @@ class PeminjamanBarangController extends Controller
     public function destroy($id)
     {
         $peminjaman = PeminjamanBarang::find($id);
+        $getBarang = Barang::where('id', $peminjaman->barang_id)->first();
+        $quantity = intval($getBarang->quantity) + intval($peminjaman->quantity);
+
+        $updateBarang = Barang::where('id', $peminjaman->barang_id)->update(['quantity'=> $quantity]);
         $peminjaman->delete();
         return redirect()->route('dashboardpage.peminjamanbarang.index');
     }

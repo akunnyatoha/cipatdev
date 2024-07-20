@@ -65,17 +65,21 @@ class UserController extends Controller
             }
             $validateImage['image'] = $request->file('image')->store('user-images');
             // $nameImage = $request['image']
+            User::where('id', $id)->update([
+                'id' => $request->noinduk,
+                'name' => $request->name,
+                'image' => $validateImage['image'],
+                'email' => $request->email,
+                'phone' => $request->phone,
+            ]);
+            return redirect()->route('dashboardpage.user.index');
         }
-
-        
         User::where('id', $id)->update([
             'id' => $request->noinduk,
             'name' => $request->name,
-            'image' => $validateImage['image'],
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
-
         return redirect()->route('dashboardpage.user.index');
     }
     public function destroy($id)

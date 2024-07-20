@@ -23,22 +23,22 @@ class BarangSeeder extends Seeder
         // }
         
         $barangs = Barang::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'code' => 'B0001',
             'name' => 'Infocus',
             'quantity' => 20
         ]);
         $barangs = Barang::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'code' => 'B0002',
             'name' => 'Sound System',
             'quantity' => 20
         ]);
         $barangs = Barang::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'code' => 'B0003',
             'name' => 'Keyboard',
             'quantity' => 20
         ]);
         $barangs = Barang::create([
-            'id' => $faker->unique()->numberBetween($min = 100, $max = 200),
+            'code' => 'B0004',
             'name' => 'Kabel Role',
             'quantity' => 20
         ]);

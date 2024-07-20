@@ -28,15 +28,15 @@
                     <div class="card-body">
                       <div class="form-group">
                         <label for="code">Kode Barang</label>
-                        <input type="text" class="form-control" id="code" name="code" placeholder="Kode Barang" value="{{ $barang->id }}">
+                        <input type="text" class="form-control" id="code" name="code" placeholder="Kode Barang" value="{{ $barang->code }}">
                       </div>
                       <div class="form-group">
                         <label for="name">Nama Barang</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Nama Barang" value="{{ $barang->name }}">
                       </div>
                       <div class="form-group">
-                        <label for="floor">Quantity</label>
-                        <input type="text" class="form-control" id="floor" name="floor" placeholder="Quantity" value="{{ $barang->quantity }}">
+                        <label for="quantity">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity" value="{{ $barang->quantity }}">
                       </div>
                     </div>
                     <!-- /.card-body -->

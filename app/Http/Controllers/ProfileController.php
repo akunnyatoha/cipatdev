@@ -27,7 +27,7 @@ class ProfileController extends Controller
         $validateData = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         
 

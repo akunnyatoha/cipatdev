@@ -184,6 +184,9 @@ class LandingController extends Controller
         $peminjaman = Peminjaman::find($id);
         if($peminjaman === null) {
             $peminjaman = PeminjamanBarang::find($id);
+            $getBarang = Barang::where('id', $peminjaman->barang_id)->first();
+            $quantity = intval($getBarang->quantity) + intval($peminjaman->quantity);
+            $updateBarang = Barang::where('id', $peminjaman->barang_id)->update(['quantity' => $quantity]);
         }
         $peminjaman->delete();
         return redirect()->route('landingpage.histori');

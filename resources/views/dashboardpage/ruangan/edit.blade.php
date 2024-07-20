@@ -22,13 +22,22 @@
       <div class="row">
         <div class="col-12">
             <div class="card">
+              @if (session()->has('error'))
+              <div class="row mb-2">
+                  <div class="col">
+                      <div class="alert alert-error" role="alert">
+                          {{session('error')}}
+                      </div>
+                  </div>
+              </div>
+              @endif
                 <form action="{{ route('dashboardpage.ruangan.update', $room->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
                       <div class="form-group">
                         <label for="code">Kode Ruangan</label>
-                        <input type="text" class="form-control" id="code" name="code" placeholder="Kode Ruang" value="{{ $room->id }}">
+                        <input type="text" class="form-control" id="code" name="code" placeholder="Kode Ruang" value="{{ $room->code }}">
                       </div>
                       <div class="form-group">
                         <label for="name">Nama Ruangan</label>

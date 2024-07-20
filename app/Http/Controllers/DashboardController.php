@@ -42,7 +42,11 @@ class DashboardController extends Controller
 
         $completedPeminjaman = $completedPeminjamanBarang + $completedPeminjamanRuangan;    
 
-        $rate = 10;
+        $rate = 0;
+        if($totalPeminjaman != 0 && $completedPeminjaman != 0) {
+            $rate = $completedPeminjaman / $totalPeminjaman * 100;
+        }
+
         $userCount = User::count();
         // Ambil data peminjaman dari minggu ini
         $peminjamanRuanganThisWeek = Peminjaman::whereBetween('start_datetime', [

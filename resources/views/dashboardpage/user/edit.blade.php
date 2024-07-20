@@ -30,7 +30,7 @@
                             <label for="noinduk">Nomor Induk</label>
                             <input type="text" class="form-control" id="noinduk" name="noinduk" placeholder="Nomor Induk" value="{{ $user->id }}">
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="role">Role</label>
                             <select class="form-control" aria-label="role" id="role" name="role">
                                 <option selected disabled>- Pilih Role -</option>
@@ -38,7 +38,7 @@
                                         <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
                                     @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="name">Nama</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Nama" value="{{ $user->name }}">

@@ -15,8 +15,12 @@ class BarangController extends Controller
         return view('dashboardpage.barang.create');
     }
     public function store(Request $request){
+        $getBarang = Barang::where('code', $request->code)->first();
+        if($getBarang != null) {
+            return redirect()->route('dashboardpage.barang.create')->with('error', 'Code barang sudah ada!');
+        }
         $room = Barang::create([
-            'id'=>$request->code,
+            'code'=>$request->code,
             'name'=>$request->name,
             'quantity'=>$request->quantity,
         ]);
@@ -28,7 +32,7 @@ class BarangController extends Controller
     }
     public function update(Request $request, $id){
         Barang::where('id',$id)->update([
-            'id'=>$request->code,
+            'code'=>$request->code,
             'name'=>$request->name,
             'quantity'=>$request->quantity,
         ]);
