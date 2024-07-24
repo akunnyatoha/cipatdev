@@ -23,24 +23,15 @@ class BarangSeeder extends Seeder
         // }
         
         $barangs = Barang::create([
-            'code' => 'B0001',
+            'code' => 'B101',
             'name' => 'Infocus',
             'quantity' => 20
         ]);
         $barangs = Barang::create([
-            'code' => 'B0002',
+            'code' => 'B102',
             'name' => 'Sound System',
             'quantity' => 20
         ]);
-        $barangs = Barang::create([
-            'code' => 'B0003',
-            'name' => 'Keyboard',
-            'quantity' => 20
-        ]);
-        $barangs = Barang::create([
-            'code' => 'B0004',
-            'name' => 'Kabel Role',
-            'quantity' => 20
-        ]);
+        
     }
 }
