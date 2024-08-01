@@ -59,8 +59,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Peminjaman::class,'validated_by');
     }
-    public function email()
+    public function peminjamans()
     {
         return $this->hasMany(Peminjaman::class,'email');
+    }
+    public function peminjamanbarangs() {
+        return $this->hasMany(PeminjamanBarang::class, 'email');
     }
 }

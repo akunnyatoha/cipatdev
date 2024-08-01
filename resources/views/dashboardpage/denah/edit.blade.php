@@ -42,6 +42,7 @@
                       </div>
                       <div class="form-group">
                         <label for="image" class="form-label">Slider Image</label>
+                            <input type="hidden" name="old_img" value="{{$slider->image}}">
                             <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image" accept=".jpg, .jpeg, .png., .webp">
                             @error('image')
                                 <small class="text-danger">{{ $message }}</small>

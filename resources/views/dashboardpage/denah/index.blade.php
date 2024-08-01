@@ -48,7 +48,7 @@
                                 @if ($slider->image == null)
                                     <span class="badge bg-primary">No Image</span>
                                 @else
-                                    <img src="{{ asset('storage/slider/' . $slider->image) }}" class="img-fluid" style="max-width: 100px;"alt="{{ $slider->image }}">
+                                    <img src="{{ asset('storage/' . $slider->image) }}" class="img-fluid" style="max-width: 100px;"alt="{{ $slider->image }}">
                                 @endif
                             </td>
                             <td>

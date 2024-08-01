@@ -24,6 +24,11 @@ class Peminjaman extends Model
         'created_by',
         'validated_by',
     ];
+    
+    public function user() {
+        return $this->belongsTo(User::class, 'email');
+    }
+
     public function rooms()
     {
         return $this->belongsTo(Room::class,'room_id');

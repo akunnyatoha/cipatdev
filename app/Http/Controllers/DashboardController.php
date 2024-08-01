@@ -15,6 +15,7 @@ class DashboardController extends Controller
         $peminjamans = [];
         $peminjamanrooms = Peminjaman::with('rooms')->latest()->limit(5)->get();
         $peminjamanbarangs = PeminjamanBarang::with('barangs')->latest()->limit(5)->get();
+        // return ["1" => $peminjamanrooms, "2" => $peminjamanbarangs[0]];
         foreach ($peminjamanrooms as $i) {
             array_push($peminjamans, $i);
         }

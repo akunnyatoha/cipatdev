@@ -7,7 +7,7 @@
                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-bs-interval="3000">
                         {{-- cek apakah slider memiliki image --}}
                         @if ($slider->image)
-                            <img src="{{ asset('storage/slider/' . $slider->image) }}" class="d-block w-100" alt="{{ $slider->image }}">
+                            <img src="{{ asset('storage/' . $slider->image) }}" class="d-block w-100" alt="{{ $slider->image }}">
                         @else
                             <img src="{{ asset('storage/slider/default-slider.png') }}" class="d-block w-100" alt="default-image">
                         @endif

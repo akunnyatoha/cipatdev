@@ -21,23 +21,16 @@ class SliderController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = $request->validate([
             'title' => 'required|string|min:5',
             'caption' => 'required|string|min:5',
             'image' => 'required|image|mimes:jpeg,png,jpg,webp',
         ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors())->withInput();
-        }
-        $imageName = time().'.'.$request->image->extension();
-        Storage::putFileAs('public/slider', $request->file('image'), $imageName);
-        $slider = Slider::create([
-            'title' => $request->title,
-            'caption' => $request->caption,
-            'image' => $imageName,
-        ]);
-        return redirect()->route('dashboardpage.denah.index');
+        $validator['image'] = $request->file('image')->store('img-slide');
+        $saveData = Slider::create($validator);
+        return redirect()->route('dashboardpage.denah.index')->with('success', "Data berhasil ditambahkan");
     }
+    // TOLOL BANGET YG NGODING SIAPASI ANYING
 
     public function edit(Request $request, $id)
     {
@@ -47,31 +40,19 @@ class SliderController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = $request->validate([
             'title' => 'required|string|min:5',
             'caption' => 'required|string|min:5',
             'image' => 'image|mimes:jpeg,png,jpg,webp',
         ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors())->withInput();
-        }
-        if ($request->hasFile('image')) {
-            $old_image = Slider::find($id)->image;
-            Storage::delete('public/slider/'.$old_image);
-            $imageName = time().'.'.$request->image->extension();
-            Storage::putFileAs('public/slider', $request->file('image'), $imageName);
-            Slider::where('id', $id)->update([
-                'title' => $request->title,
-                'caption' => $request->caption,
-                'image' => $imageName,
-            ]);
 
-        } else {
-            Slider::where('id', $id)->update([
-                'title' => $request->title,
-                'caption' => $request->caption,
-            ]);
+        if($request->file('image')) {
+            if($request->old_img) {
+                Storage::delete($request->old_img);
+            }
+            $request['image'] = $request->file()->store('img-slide');
         }
+        $updateData = Slider::find($id)->update($validator);
         return redirect()->route('dashboardpage.denah.index');
     }
     public function destroy($id)

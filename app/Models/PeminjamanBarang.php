@@ -24,6 +24,10 @@ class PeminjamanBarang extends Model
         'created_by',
         'validated_by',
     ];
+    
+    public function user() {
+        return $this->belongsTo(User::class, 'email');
+    }
     public function barangs()
     {
         return $this->belongsTo(Barang::class,'barang_id');
