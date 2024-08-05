@@ -32,6 +32,14 @@ class PeminjamanBarangController extends Controller
         $codeFix = '';
         $now = getdate(date("U"));
         $year = $now['year'];
+        $validateFile = $request->validate([
+            'file_pendukung' => 'file|mimes:jpeg,png,jpg,pdf|max:5120',
+        ]);
+        $nameFile = null;
+        if($request->file('file_pendukung')) {
+            $validateFile['file_pendukung'] = $request->file('file_pendukung')->store('peminjaman-folder');
+            $nameFile = $validateFile['file_pendukung'];
+        }
         if($getCodePeminjamanLast != null) {
             // RG/0001/2024
             $split = str_split($getCodePeminjamanLast['code']);
@@ -60,6 +68,7 @@ class PeminjamanBarangController extends Controller
                 'start_datetime' => $request->tanggalawal,
                 'end_datetime' => $request->tanggalakhir,
                 'quantity' => $request->quantity,
+                'file_pendukung' => $nameFile,
                 'created_by' => Auth::id(),
                 'validated_by' => Auth::id(),
             ]);
@@ -86,6 +95,7 @@ class PeminjamanBarangController extends Controller
                 'end_datetime' => $request->tanggalakhir,
                 'quantity' => $request->quantity,
                 'status' => $status,
+                'file_pendukung' => $nameFile,
                 'created_by' => Auth::id(),
             ]);
 
@@ -156,19 +166,40 @@ class PeminjamanBarangController extends Controller
         return view('dashboardpage.peminjamanbarang.edit',compact('peminjaman','ruangans'));
     }
     public function update(Request $request, $id){
+        $validateFile = $request->validate([
+            'file_pendukung' => 'file|mimes:jpeg,png,jpg,pdf|max:5120'
+        ]);
         $qtySebelumUpdate = PeminjamanBarang::where('id',$id)->first();
         $getBarang = Barang::where('id', $request->barang)->first();
         $qtyBarang = intval($qtySebelumUpdate->quantity) + intval($getBarang->quantity);
-        PeminjamanBarang::where('id',$id)->update([
-            'email' => $request->email,
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'barang_id' => $request->barang,
-            'description' => $request->description,
-            'start_datetime' => $request->tanggalawal,
-            'end_datetime' => $request->tanggalakhir,
-            'quantity' => $request->quantity,
-        ]);
+        if($request->file('file_pendukung')) {
+            if($request->old_file) {
+                Storage::delete($request->old_file);
+            }
+            $validateFile['file_pendukung'] = $request->file('file_pendukung')->store('peminjaman-folder');
+            PeminjamanBarang::where('id',$id)->update([
+                'email' => $request->email,
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'barang_id' => $request->barang,
+                'description' => $request->description,
+                'start_datetime' => $request->tanggalawal,
+                'end_datetime' => $request->tanggalakhir,
+                'quantity' => $request->quantity,
+                'file_pendukung' => $validateFile['image']
+            ]);
+        } else {
+            PeminjamanBarang::where('id',$id)->update([
+                'email' => $request->email,
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'barang_id' => $request->barang,
+                'description' => $request->description,
+                'start_datetime' => $request->tanggalawal,
+                'end_datetime' => $request->tanggalakhir,
+                'quantity' => $request->quantity,
+            ]);
+        }
         $sisaQty = intval($qtyBarang) - intval($request->quantity); 
 
         $updateQuantity = Barang::where('id', $request->barang)->update([

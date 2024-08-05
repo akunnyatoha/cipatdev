@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('start_datetime')->nullable(); // Tanggal dan waktu mulai peminjaman
             $table->timestamp('end_datetime')->nullable();   // Tanggal dan waktu selesai peminjaman
             $table->string('capacity');
+            $table->string('file_pendukung')->nullable();
             $table->enum('status', ['accepted', 'pending', 'reject'])->default('pending');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('validated_by')->nullable();

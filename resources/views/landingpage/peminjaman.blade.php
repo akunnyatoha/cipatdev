@@ -11,7 +11,7 @@
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6">
                 @if(isset($availableRooms))
-                <form action="{{route('landingpage.peminjaman.store')}}" method="POST">
+                <form action="{{route('landingpage.peminjaman.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-label">
                         <label for="tanggal">Tanggal dan Waktu Peminjaman</label>
@@ -38,7 +38,10 @@
                     <div class="form-label">
                         <label for="description">Keperluan</label>
                         <input type="text" class="form-control" id="description" name="description">
-                        </select>
+                    </div>
+                    <div class="form-label">
+                        <label for="description">File Pendukung</label>
+                        <input type="file" class="form-control" id="file_pendukung" name="file_pendukung">
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="showSuccessAlert()">Submit</button>
                 </form>
@@ -67,7 +70,10 @@
                 <div class="form-label">
                     <label for="description">Keperluan</label>
                     <input type="text" class="form-control" id="description" name="description" disabled>
-                    </select>
+                </div>
+                <div class="form-label">
+                    <label for="description">File Pendukung</label>
+                    <input type="file" class="form-control" id="file_pendukung" name="file_pendukung" disabled>
                 </div>
                 @endif
             </div>

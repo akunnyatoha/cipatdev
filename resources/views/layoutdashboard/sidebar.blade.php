@@ -47,7 +47,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{route('dashboardpage.ruangan.index')}}" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
@@ -94,7 +94,7 @@
                 Pengembalian Barang
               </p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="{{route('dashboardpage.user.index')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -104,13 +104,21 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{route('dashboardpage.laporan.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-barcode"></i>
+              <p>
+                Laporan Peminjaman
+              </p>
+            </a>
+          </li>
+          {{-- <li class="nav-item">
             <a href="{{route('dashboardpage.denah.index')}}" class="nav-link">
               <i class="nav-icon fas fa-barcode"></i>
               <p>
                 Denah
               </p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       @endif

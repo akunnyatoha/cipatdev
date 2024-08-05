@@ -89,8 +89,15 @@ class LandingController extends Controller
     }
     public function store(Request $request){
         $userRole = auth()->user()->role->name;
+        $validateFile = $request->validate([
+            'file_pendukung' => 'file|mimes:jpeg,png,jpg,pdf|max:5120',
+        ]);
+        $nameFile = null;
+        if($request->file('file_pendukung')) {
+            $validateFile['file_pendukung'] = $request->file('file_pendukung')->store('peminjaman-folder');
+            $nameFile = $validateFile['file_pendukung'];
+        }
         $status = ($userRole === 'Admin' || $userRole === 'BKA' || $userRole === 'Perkuliahan') ? 'accepted' : 'pending';
-
             $email = Auth::user()->email;
             $phone = Auth::user()->phone;
             $name = Auth::user()->name;
@@ -127,6 +134,7 @@ class LandingController extends Controller
                         'description' => $request->description,
                         'start_datetime' => $request->tanggalawal,
                         'end_datetime' => $request->tanggalakhir,
+                        'file_pendukung' => $nameFile,
                         'quantity' => $request->quantity,
                         'status' => $status,
                         'created_by' => Auth::id(),
@@ -170,6 +178,7 @@ class LandingController extends Controller
                         'start_datetime' => $request->tanggalawal,
                         'end_datetime' => $request->tanggalakhir,
                         'capacity' => $request->capacity,
+                        'file_pendukung' => $nameFile,
                         'status' => $status,
                         'created_by' => Auth::id(),
                     ]);

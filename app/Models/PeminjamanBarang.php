@@ -20,6 +20,7 @@ class PeminjamanBarang extends Model
         'start_datetime',
         'end_datetime',
         'quantity',
+        'file_pendukung',
         'status',
         'created_by',
         'validated_by',

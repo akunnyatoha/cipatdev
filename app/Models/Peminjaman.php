@@ -20,6 +20,7 @@ class Peminjaman extends Model
         'start_datetime',
         'end_datetime',
         'capacity',
+        'file_pendukung',
         'status',
         'created_by',
         'validated_by',

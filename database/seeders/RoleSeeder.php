@@ -34,7 +34,7 @@ class RoleSeeder extends Seeder
 
         //User
         Role::create([
-            'name' => 'User',
+            'name' => 'Peminjam',
         ]);
     }
 }

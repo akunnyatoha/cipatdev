@@ -47,9 +47,22 @@ Route::middleware('auth')->group(function(){
     Route::post('/change-password', [ProfileController::class, 'change'])->name('change-password.update');
 
     Route::middleware('role:Admin|Dekan|BKA|Perkuliahan')->group(function(){
+
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/laporan-peminjaman', [LaporanController::class, 'index'])->name('dashboardpage.laporan.index');
         Route::get('/calendar', [DashboardController::class, 'calendar'])->name('dashboardpage.calendar');
+
+    });
+
+    Route::middleware('role:Admin')->group(function(){
+        Route::get('/user', [UserController::class, 'index'])->name('dashboardpage.user.index');
+        Route::get('/user/create', [UserController::class, 'create'])->name('dashboardpage.user.create');
+        Route::post('/user',[UserController::class,'store'])->name('dashboardpage.user.store');
+        Route::get('/user/edit/{id}',[UserController::class,'edit'])->name('dashboardpage.user.edit');
+        Route::put('/user/{id}',[UserController::class,'update'])->name('dashboardpage.user.update');
+        Route::delete('/user/{id}',[UserController::class,'destroy'])->name('dashboardpage.user.destroy');
+    });
+    Route::middleware('role:Dekan|BKA|Perkuliahan')->group(function(){
         Route::get('/ruangan', [RuangController::class, 'index'])->name('dashboardpage.ruangan.index');
         Route::get('/barang', [BarangController::class, 'index'])->name('dashboardpage.barang.index');
 
@@ -109,15 +122,6 @@ Route::middleware('auth')->group(function(){
         Route::get('/pengembalianbarangs/edit/{id}', [PengembalianBarangController::class, 'edit'])->name('dashboardpage.pengembalianbarang.edit');
         Route::put('/pengembalianbarangs/{id}', [PengembalianBarangController::class, 'update'])->name('dashboardpage.pengembalianbarang.update');
         Route::delete('/pengembalianbarangs/{id}', [PengembalianBarangController::class, 'destroy'])->name('dashboardpage.pengembalianbarang.destroy');
-
-    });
-    Route::middleware('role:Admin')->group(function(){
-        Route::get('/user', [UserController::class, 'index'])->name('dashboardpage.user.index');
-        Route::get('/user/create', [UserController::class, 'create'])->name('dashboardpage.user.create');
-        Route::post('/user',[UserController::class,'store'])->name('dashboardpage.user.store');
-        Route::get('/user/edit/{id}',[UserController::class,'edit'])->name('dashboardpage.user.edit');
-        Route::put('/user/{id}',[UserController::class,'update'])->name('dashboardpage.user.update');
-        Route::delete('/user/{id}',[UserController::class,'destroy'])->name('dashboardpage.user.destroy');
     });
 
     // Route::middleware('role:')

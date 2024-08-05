@@ -32,6 +32,14 @@ class PeminjamanController extends Controller
         $codeFix = '';
         $now = getdate(date("U"));
         $year = $now['year'];
+        $validateFile = $request->validate([
+            'file_pendukung' => 'file|mimes:jpeg,png,jpg,pdf|max:5120',
+        ]);
+        $nameFile = null;
+        if($request->file('file_pendukung')) {
+            $validateFile['file_pendukung'] = $request->file('file_pendukung')->store('peminjaman-folder');
+            $nameFile = $validateFile['file_pendukung'];
+        }
         if($getCodePeminjamanLast != null) {
             // RG/0001/2024
             $split = str_split($getCodePeminjamanLast['code']);
@@ -60,6 +68,7 @@ class PeminjamanController extends Controller
                 'start_datetime' => $request->tanggalawal,
                 'end_datetime' => $request->tanggalakhir,
                 'capacity' => $request->capacity,
+                'file_pendukung' => $nameFile,
                 'created_by' => Auth::id(),
                 'validated_by' => Auth::id(),
             ]);
@@ -78,6 +87,7 @@ class PeminjamanController extends Controller
                 'start_datetime' => $request->tanggalawal,
                 'end_datetime' => $request->tanggalakhir,
                 'capacity' => $request->capacity,
+                'file_pendukung' => $nameFile,
                 'status' => $status,
                 'created_by' => Auth::id(),
             ]);
@@ -142,16 +152,25 @@ class PeminjamanController extends Controller
         return view('dashboardpage.peminjaman.edit',compact('peminjaman','ruangans'));
     }
     public function update(Request $request, $id){
-        Peminjaman::where('id',$id)->update([
-            'email' => $request->email,
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'room_id' => $request->room,
-            'description' => $request->description,
-            'start_datetime' => $request->tanggalawal,
-            'end_datetime' => $request->tanggalakhir,
-            'capacity' => $request->capacity,
+        $validateData = $request->validate([
+            'email' => 'email|min:5|max:50|required',
+            'name' =>'min:5|max:50|required',
+            'phone' => 'min:5|max:13|',
+            'room_id' => 'max:10|required',
+            'description' =>'min:3|max:255|required',
+            'start_datetime' =>'required',
+            'end_datetime' =>'required',
+            'capacity' =>'required',
+            'file_pendukung' => 'file|mimes:jpeg,png,jpg,pdf|max:5120'
         ]);
+        if($request->file('file_pendukung')) {
+            if($request->old_file) {
+                Storage::delete($request->old_file);
+            }
+            $validateData['file_pendukung'] = $request->file('file_pendukung')->store('peminjaman-folder');
+            // $nameImage = $request['image']
+        }
+        Peminjaman::where('id',$id)->update($validateData);
         return redirect()->route('dashboardpage.peminjaman.index');
     }
     public function accept($id)
