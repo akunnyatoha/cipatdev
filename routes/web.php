@@ -102,6 +102,8 @@ Route::middleware('auth')->group(function(){
         Route::post('/peminjamanbarangs/csv',[PeminjamanBarangController::class,'importCSV'])->name('dashboardpage.peminjamanbarang.csv');
         Route::get('/download-csv', [PeminjamanBarangController::class,'downloadCSV'])->name('download.csv');
 
+        Route::get('/download-file-pendukung/{code}', [DashboardController::class, 'downloadFile'])->name('dashboardpage.peminjaman.download');
+
         Route::get('/slider', [SliderController::class, 'index'])->name('dashboardpage.denah.index');
         Route::get('/slider/create', [SliderController::class, 'create'])->name('dashboardpage.denah.create');
         Route::post('/slider', [SliderController::class, 'store'])->name('dashboardpage.denah.store');

@@ -42,6 +42,7 @@
                   <th>Mulai</th>
                   <th>Selesai</th>
                   <th>Kapasitas</th>
+                  <th>Dokumen Pendukung</th>
                   <th>Status</th>
                   <th>Approve</th>
                   <th>Aksi</th>
@@ -60,6 +61,16 @@
                             <td>{{ $peminjaman->start_datetime }}</td>
                             <td>{{ $peminjaman->end_datetime }}</td>
                             <td>{{ $peminjaman->capacity }}</td>
+                            @if (isset($peminjaman->file_pendukung) && $peminjaman->file_pendukung != null)
+                              <td>
+                                <a href="{{route('dashboardpage.peminjaman.download', $peminjaman->code)}}" class="btn btn-primary">Download</a>
+                                {{-- <form action="{{route('dashboardpage.peminjaman.download', $peminjaman->code)}}" method="post">
+                                  <button class="btn btn-primary" type="submit">Donload File</button>
+                                </form> --}}
+                              </td>
+                            @else
+                              <td>-</td>
+                            @endif
                             <td>
                                 @if ($peminjaman->status == 'accepted')
                                     <span class="badge bg-success">{{ $peminjaman->status }}</span>

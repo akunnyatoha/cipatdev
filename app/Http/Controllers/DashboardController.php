@@ -9,6 +9,7 @@ use App\Models\Barang;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 class DashboardController extends Controller
 {
     public function index(){
@@ -90,5 +91,15 @@ class DashboardController extends Controller
     }
     public function calendar(){
         return view("dashboardpage.calendar");
+    }
+
+    public function downloadFile(Request $request, $code) {
+        if(strpos($code, 'BR') != false) {
+            $getData = Peminjaman::where('code', $code)->first();
+            return Storage::download($getData->file_pendukung);
+        } else if(strpos($code, 'RG') != false) {
+            $getData = PeminjamanBarang::where('code', $code)->first();
+            return Storage::download($getData->file_pendukung);
+        }
     }
 }
