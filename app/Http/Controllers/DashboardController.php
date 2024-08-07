@@ -93,13 +93,9 @@ class DashboardController extends Controller
         return view("dashboardpage.calendar");
     }
 
-    public function downloadFile(Request $request, $code) {
-        if(strpos($code, 'BR') != false) {
-            $getData = Peminjaman::where('code', $code)->first();
-            return Storage::download($getData->file_pendukung);
-        } else if(strpos($code, 'RG') != false) {
-            $getData = PeminjamanBarang::where('code', $code)->first();
-            return Storage::download($getData->file_pendukung);
-        }
+    public function downloadFile(Request $request) {
+        $path = Storage::path($request->file);
+        // dd($path);
+        return response()->download($path);
     }
 }

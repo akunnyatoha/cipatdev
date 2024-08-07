@@ -63,7 +63,7 @@
                             <td>{{ $peminjaman->quantity }}</td>
                             @if (isset($peminjaman->file_pendukung) && $peminjaman->file_pendukung != null)
                               <td>
-                                <a href="{{route('dashboardpage.peminjaman.download', $peminjaman->code)}}" class="btn btn-primary">Download</a>
+                                <a href="{{url('/download-file-pendukung?file=' . $peminjaman->file_pendukung)}}" class="btn btn-primary">Download</a>
                                 {{-- <form action="{{route('dashboardpage.peminjaman.download', $peminjaman->code)}}" method="post">
                                   <button class="btn btn-primary" type="submit">Donload File</button>
                                 </form> --}}
