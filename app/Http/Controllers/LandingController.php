@@ -64,14 +64,25 @@ class LandingController extends Controller
         $request->validate([
             'tanggalawal' => 'required|date_format:Y-m-d\TH:i',
             'tanggalakhir' => 'required|date_format:Y-m-d\TH:i|after:tanggalawal',
+            'capacity' => 'required'
         ]);
 
         $startDatetime = Carbon::parse($request->input('tanggalawal'));
         $endDatetime = Carbon::parse($request->input('tanggalakhir'));
+        $capacity = $request->capacity;
 
         $availableRooms = Peminjaman::getAvailableRooms($startDatetime, $endDatetime);
+        if(count($availableRooms) >0) {
+            $avail = [];
+            foreach ($availableRooms as $i) {
+                if(intval($i->capacity) <= intval($capacity)) {
+                array_push($avail, $i);
+                }
+            }
+            $availableRooms = $avail;
+        }
 
-        return view('landingpage.peminjaman', compact('availableRooms', 'startDatetime', 'endDatetime'));
+        return view('landingpage.peminjaman', compact('availableRooms', 'startDatetime', 'endDatetime', 'capacity'));
     }
     public function showAvailableBarangs(Request $request)
     {

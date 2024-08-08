@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
@@ -16,7 +17,26 @@ class PeminjamanBarangController extends Controller
 {
     public function index(){
         $peminjamans = PeminjamanBarang::with('barangs')->orderBy('created_at', 'desc')->get();
-        // dd($peminjamans);
+        $peminjamanAvailable = PeminjamanBarang::select(
+            'id','barang_id', 
+            'quantity', 
+            'created_at',
+            DB::raw(
+                'TIMESTAMPDIFF(SECOND,created_at, NOW()) AS selisih_waktu'
+            )
+        )
+            ->where('status' , 'pending')
+        ->get();
+        if(count($peminjamanAvailable) > 0) {
+            foreach ($peminjamanAvailable as $p) {
+                if(intval($p->selisih_waktu) >= 86400) {
+                    $getBarang = Barang::find($p->barang_id);
+                    $quantity = intval($getBarang->quantity) + intval($p->quantity);
+                    $getBarang->update(['qantity' => $quantity]);
+                    $updatePpeminjaman = PeminjamanBarang::where('id', $p->id)->update(['status' => 'expired']);
+                }
+            }
+        }
         return view("dashboardpage.peminjamanbarang.index",compact('peminjamans'));
     }
     public function create(){
